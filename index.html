@@ -181,7 +181,7 @@
         }
         .pcard:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(20,42,46,0.06); }
         .pcard-img {
-            width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem;
+            width: 100%; height: 280px; object-fit: cover; object-position: center 30%; border-radius: 12px; margin-bottom: 1.5rem;
         }
         .pcard h3 {
             font-family: var(--font-display); font-weight: 500; font-size: 1.4rem;
@@ -191,7 +191,7 @@
 
         /* ========== FEATURES ========== */
         .features-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-top: 3rem;
         }
         .fcard {
             border-radius: 16px; background: var(--verde); color: white;
@@ -355,7 +355,7 @@
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
             .problem-grid, .contact-grid, .test-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .features-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .features-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
             .pricing-grid { grid-template-columns: 1fr; gap: 1rem; }
             .prcard.feat { transform: scale(1); }
             .hero-content { padding: 7rem 1.5rem 3rem; }
@@ -391,7 +391,7 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-eyebrow">Playgroup · Primera Infancia</div>
-            <h1 class="hero-title">Un espacio donde tu hijo <em>explora, juega y crece</em> a su ritmo</h1>
+            <h1 class="hero-title">Un espacio donde tu hijo/a <em>explora, crece y aprende</em> a su ritmo y jugando</h1>
             <p class="hero-subtitle">Playgroup inspirado en la filosofía Reggio Emilia, en 2.500m² de naturaleza. Para niños y niñas de 1 a 6 años.</p>
             <div class="hero-actions">
                 <a href="#contacto" class="btn-primary">
@@ -442,34 +442,41 @@
     <section>
         <div class="inner anim">
             <div class="eyebrow">¿Por qué Bianca Stella?</div>
-            <h2 class="stitle">Cuatro cosas que nos hacen <em>diferentes</em></h2>
+            <h2 class="stitle">Cinco cosas que nos hacen <em>diferentes</em></h2>
             <div class="features-grid">
                 <div class="fcard">
                     <img src="landing_fotos_hero.jpg" alt="2500m² de naturaleza" class="fcard-img">
                     <div class="fcard-body">
-                        <h3>2.500m² de naturaleza</h3>
-                        <p>Huerto, gallinero, tres patios distintos y espacios al aire libre donde los niños exploran con todos sus sentidos.</p>
+                        <h3>2.500m² para explorar</h3>
+                        <p>Huerto propio, gallinero, tres patios, arenero y espacios al aire libre. Un entorno real donde los niños aprenden con todos sus sentidos, lejos de las cuatro paredes de una sala.</p>
                     </div>
                 </div>
                 <div class="fcard">
                     <img src="landing_fotos_mesa_luz.jpg" alt="Exploración sensorial Reggio Emilia" class="fcard-img">
                     <div class="fcard-body">
                         <h3>Filosofía Reggio Emilia</h3>
-                        <p>Inspirados en una de las mejores pedagogías del mundo. El niño es co-constructor de su propio aprendizaje.</p>
+                        <p>Con más de 80 años de historia, es reconocida como una de las mejores pedagogías del mundo. El niño es co-constructor de su propio aprendizaje.</p>
                     </div>
                 </div>
                 <div class="fcard">
                     <img src="landing_fotos_gallinas.jpg" alt="Niños alimentando gallinas" class="fcard-img">
                     <div class="fcard-body">
                         <h3>Grupos pequeños</h3>
-                        <p>Máximo 15-18 niños por grupo, con 3 educadoras. Atención personalizada real, no solo de nombre.</p>
+                        <p>De 6 a 15 niños por adulto. Stella (1-2 años): 3 adultos. Luna (2-4 años): 2 adultos. Sole (4-6 años): 1 adulto. Atención personalizada real.</p>
                     </div>
                 </div>
                 <div class="fcard">
                     <img src="landing_fotos_cocina.jpg" alt="Atelier de cocina" class="fcard-img">
                     <div class="fcard-body">
                         <h3>Ateliers y talleres</h3>
-                        <p>Arte, cocina, construcción, literatura, luz y sombra. Cada espacio invita a un tipo diferente de exploración.</p>
+                        <p>Cada experiencia se desarrolla como un taller donde los niños investigan: cocina, construcción, arte, ciencias. Distintos tipos de aprendizajes y habilidades — sin que se den cuenta, aprenden.</p>
+                    </div>
+                </div>
+                <div class="fcard">
+                    <img src="landing_fotos_ninos_exterior.jpg" alt="Niños resolviendo juntos" class="fcard-img">
+                    <div class="fcard-body">
+                        <h3>Herramientas para la vida</h3>
+                        <p>La frustración es parte de la vida real. Enseñamos técnicas de respiración, mindfulness y herramientas para resolver conflictos, haciendo a cada niño consciente de sus capacidades.</p>
                     </div>
                 </div>
             </div>
@@ -584,7 +591,7 @@
             <div class="contact-grid">
                 <div class="contact-info">
                     <h3>Ven a conocernos</h3>
-                    <p>Recorre nuestros 2.500m² de naturaleza, conoce al equipo, observa cómo trabajamos y resuelve todas tus dudas. Tu hijo también es bienvenido.</p>
+                    <p>Recorre nuestra naturaleza, aulas, atelieres y co-work. Conoce al equipo, observa cómo trabajamos y resuelve todas tus dudas. Tu hijo/a también es bienvenido/a.</p>
                     <div class="cdetail">
                         <div class="cdetail-icon">📍</div>
                         <div class="cdetail-text">
@@ -595,8 +602,8 @@
                     <div class="cdetail">
                         <div class="cdetail-icon">🕐</div>
                         <div class="cdetail-text">
-                            <strong>Horarios de visita</strong>
-                            Lunes a viernes 8:00 a 17:00<br>Fines de semana según disponibilidad<br>Siempre con coordinación previa
+                            <strong>Visitas</strong>
+                            Con coordinación previa
                         </div>
                     </div>
                     <div class="cdetail">
@@ -610,7 +617,7 @@
                         <div class="cdetail-icon">🌐</div>
                         <div class="cdetail-text">
                             <strong>Redes sociales</strong>
-                            @biancastella.primerainfancia
+                            @biancastella.cl
                         </div>
                     </div>
                 </div>
@@ -686,8 +693,8 @@
         <img src="logo_bs.png" alt="Bianca Stella" class="footer-logo">
         <p class="footer-text">"Cada niño es un universo de posibilidades esperando ser descubierto."</p>
         <div class="footer-links">
-            <a href="https://www.instagram.com/biancastella.primerainfancia/" target="_blank">Instagram</a>
-            <a href="https://www.facebook.com/biancastella.primerainfancia/" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/biancastella.cl/" target="_blank">Instagram</a>
+            <a href="https://www.facebook.com/biancastella.cl/" target="_blank">Facebook</a>
             <a href="https://www.biancastella.cl" target="_blank">biancastella.cl</a>
             <a href="https://wa.me/56953667384" target="_blank">WhatsApp</a>
         </div>
