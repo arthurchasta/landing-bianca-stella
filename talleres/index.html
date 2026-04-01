@@ -49,7 +49,7 @@
       <a href="/nosotros/">Nosotros</a>
       <a href="/contacto/">Contacto</a>
     </div>
-    <div class="nav-cta"><a href="https://wa.me/56953667384" class="btn btn-primary">Agenda tu visita</a></div>
+    <div class="nav-cta"><a href="#contacto" class="btn btn-primary">Agenda tu visita</a></div>
     <button class="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -59,7 +59,7 @@
   <a href="/talleres/">Talleres</a>
   <a href="/nosotros/">Nosotros</a>
   <a href="/contacto/">Contacto</a>
-  <a href="https://wa.me/56953667384" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Agenda tu visita</a>
+  <a href="#contacto" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Agenda tu visita</a>
 </div>
 
 <!-- Page Hero -->
@@ -125,14 +125,85 @@
   </div>
 </section>
 
-<!-- CTA Final -->
-<section class="section section-dark cta-final">
+<!-- Contacto — Formulario + WhatsApp -->
+<section id="contacto" class="section section-dark">
   <div class="container">
-    <h2>¿Quieres inscribir a tu <em>hijo/a</em>?</h2>
-    <p>Escríbenos por WhatsApp y te contamos todo.</p>
-    <div class="cta-actions">
-      <a href="https://wa.me/56953667384" class="btn btn-primary">Agenda tu visita</a>
-      <a href="https://wa.me/56953667384" class="btn btn-wa">&#9742; Escríbenos por WhatsApp</a>
+    <span class="eyebrow anim">Inscríbete</span>
+    <h2 class="anim anim-delay-1">¿Quieres inscribir a tu <em>hijo/a</em>?</h2>
+    <p class="anim anim-delay-2" style="max-width:700px;margin-bottom:var(--space-lg);">Completa el formulario y te contactaremos con toda la información.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start;">
+      <!-- Left: Form -->
+      <div class="anim">
+        <form id="leadForm" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="pagina" value="Talleres">
+
+          <label>Tu nombre *</label>
+          <input type="text" name="nombre" placeholder="Nombre completo" required>
+
+          <label>Teléfono / WhatsApp *</label>
+          <input type="tel" name="telefono" placeholder="+56 9 ..." required>
+
+          <label>¿Qué te interesa? *</label>
+          <select name="interes" required>
+            <option value="Playgroup">Playgroup</option>
+            <option value="Celebraciones">Celebraciones / Cumpleaños</option>
+            <option value="Talleres" selected>Talleres extraprogramáticos</option>
+            <option value="Otro">Otro / Información general</option>
+          </select>
+
+          <details class="form-optional">
+            <summary>Cuéntanos más (opcional)</summary>
+            <div class="form-optional-fields">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="tu@email.com">
+
+              <label>Nombre del niño/a</label>
+              <input type="text" name="nombre_nino" placeholder="Nombre">
+
+              <label>Edad del niño/a</label>
+              <select name="edad">
+                <option value="">Selecciona</option>
+                <option value="6-12 meses">6 a 12 meses</option>
+                <option value="1 año">1 año</option>
+                <option value="1 año y medio">1 año y medio</option>
+                <option value="2 años">2 años</option>
+                <option value="2 años y medio">2 años y medio</option>
+                <option value="3 años">3 años</option>
+                <option value="3 años y medio">3 años y medio</option>
+                <option value="4 años">4 años</option>
+                <option value="4 años y medio">4 años y medio</option>
+                <option value="5 años o más">5 años o más</option>
+              </select>
+
+              <label>¿Qué taller te interesa?</label>
+              <select name="taller">
+                <option value="">Selecciona...</option>
+                <option value="English">English for Toddlers</option>
+                <option value="Movimiento">Taller de Movimiento</option>
+                <option value="Exploración">Experiencia Bianca Stella</option>
+                <option value="Todos">Todos los talleres</option>
+              </select>
+            </div>
+          </details>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;">Inscribir a mi hijo/a</button>
+          <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:0.5rem;">Te responderemos en pocas horas</p>
+        </form>
+        <div id="formSuccess" style="display:none;text-align:center;padding:2rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.8rem;color:var(--rosa);margin-bottom:0.5rem;">¡Recibimos tu mensaje!</h3>
+          <p style="color:rgba(255,255,255,0.7);">Te contactaremos pronto con toda la información sobre los talleres.</p>
+        </div>
+      </div>
+
+      <!-- Right: WhatsApp + reassurance -->
+      <div class="anim anim-delay-1">
+        <div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
+          <h3 style="color:var(--white);font-family:var(--font-display);font-size:1.8rem;margin-bottom:0.5rem;">¿Preferís escribirnos directo?</h3>
+          <p style="color:rgba(255,255,255,0.5);margin-bottom:1.5rem;">Si preferís una respuesta inmediata, escríbenos por WhatsApp.</p>
+          <a href="https://wa.me/56953667384?text=Hola%2C%20me%20interesa%20inscribir%20a%20mi%20hijo%2Fa%20en%20los%20talleres%20de%20Bianca%20Stella" class="btn btn-wa" target="_blank" style="display:inline-flex;width:fit-content;">&#9742; Escribir por WhatsApp</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -184,5 +255,29 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V60WSFE5XG"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V60WSFE5XG');</script>
 <script src="../js/main.js"></script>
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyP-yzAudyNhg5sm4ZzsKlhHxG01SwKhvKE-4qMuE-lo_qgywwKG3HabqpOrIxMhRpzUQ/exec';
+
+  try {
+    await fetch(SCRIPT_URL, { method: 'POST', body: data });
+    form.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  } catch (err) {
+    const nombre = data.get('nombre');
+    const interes = data.get('interes') || 'Playgroup';
+    const msg = encodeURIComponent('Hola, soy ' + nombre + '. Me interesa información sobre ' + interes + ' en Bianca Stella.');
+    window.open('https://wa.me/56953667384?text=' + msg, '_blank');
+    btn.textContent = 'Enviado ✓';
+  }
+}
+</script>
 </body>
 </html>

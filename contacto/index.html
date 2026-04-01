@@ -49,7 +49,7 @@
       <a href="/nosotros/">Nosotros</a>
       <a href="/contacto/">Contacto</a>
     </div>
-    <div class="nav-cta"><a href="https://wa.me/56953667384" class="btn btn-primary">Agenda tu visita</a></div>
+    <div class="nav-cta"><a href="#contacto" class="btn btn-primary">Agenda tu visita</a></div>
     <button class="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -59,7 +59,7 @@
   <a href="/talleres/">Talleres</a>
   <a href="/nosotros/">Nosotros</a>
   <a href="/contacto/">Contacto</a>
-  <a href="https://wa.me/56953667384" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Agenda tu visita</a>
+  <a href="#contacto" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Agenda tu visita</a>
 </div>
 
 <!-- Page Hero -->
@@ -73,62 +73,78 @@
 </section>
 
 <!-- Contact form + info -->
-<section class="section">
+<section id="contacto" class="section">
   <div class="container">
     <div class="contact-grid">
       <!-- Left: Form -->
       <div class="contact-form">
         <form id="leadForm" onsubmit="handleSubmit(event)">
-          <label for="nombre">Tu nombre</label>
+          <input type="hidden" name="pagina" value="Contacto">
+
+          <label for="nombre">Tu nombre *</label>
           <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
-            <div>
-              <label for="telefono">Teléfono / WhatsApp</label>
-              <input type="tel" id="telefono" name="telefono" placeholder="+56 9 ..." required>
-            </div>
-            <div>
+
+          <label for="telefono">Teléfono / WhatsApp *</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+56 9 ..." required>
+
+          <label for="interes">¿Qué te interesa? *</label>
+          <select id="interes" name="interes" required>
+            <option value="">Selecciona...</option>
+            <option value="Playgroup">Playgroup</option>
+            <option value="Celebraciones">Celebraciones / Cumpleaños</option>
+            <option value="Talleres">Talleres extraprogramáticos</option>
+            <option value="Otro">Otro / Información general</option>
+          </select>
+
+          <details class="form-optional">
+            <summary>Cuéntanos más (opcional)</summary>
+            <div class="form-optional-fields">
               <label for="email">Email</label>
               <input type="email" id="email" name="email" placeholder="tu@email.com">
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
-            <div>
-              <label for="nombre_nino">Nombre del niño/a</label>
-              <input type="text" id="nombre_nino" name="nombre_nino" placeholder="Nombre">
-            </div>
-            <div>
-              <label for="edad">Edad del niño/a</label>
-              <select id="edad" name="edad">
-                <option value="">Selecciona</option>
-                <option value="6-12 meses">6 a 12 meses</option>
-                <option value="1 año">1 año</option>
-                <option value="1 año y medio">1 año y medio</option>
-                <option value="2 años">2 años</option>
-                <option value="2 años y medio">2 años y medio</option>
-                <option value="3 años">3 años</option>
-                <option value="3 años y medio">3 años y medio</option>
-                <option value="4 años">4 años</option>
-                <option value="4 años y medio">4 años y medio</option>
-                <option value="5 años o más">5 años o más</option>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
+                <div>
+                  <label for="nombre_nino">Nombre del niño/a</label>
+                  <input type="text" id="nombre_nino" name="nombre_nino" placeholder="Nombre">
+                </div>
+                <div>
+                  <label for="edad">Edad del niño/a</label>
+                  <select id="edad" name="edad">
+                    <option value="">Selecciona</option>
+                    <option value="6-12 meses">6 a 12 meses</option>
+                    <option value="1 año">1 año</option>
+                    <option value="1 año y medio">1 año y medio</option>
+                    <option value="2 años">2 años</option>
+                    <option value="2 años y medio">2 años y medio</option>
+                    <option value="3 años">3 años</option>
+                    <option value="3 años y medio">3 años y medio</option>
+                    <option value="4 años">4 años</option>
+                    <option value="4 años y medio">4 años y medio</option>
+                    <option value="5 años o más">5 años o más</option>
+                  </select>
+                </div>
+              </div>
+
+              <label for="jornada">¿Qué jornada te interesa?</label>
+              <select id="jornada" name="jornada">
+                <option value="">Aún no lo sé</option>
+                <option value="Mañana">Mañana (8:30 - 12:30)</option>
+                <option value="Completa">Jornada completa (8:30 - 16:30)</option>
+                <option value="Tarde">Tarde (14:00 - 16:30)</option>
+              </select>
+
+              <label for="source">¿Cómo nos encontraste?</label>
+              <select id="source" name="source">
+                <option value="">Selecciona...</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Google">Google</option>
+                <option value="Recomendación">Recomendación de otra familia</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Otro">Otro</option>
               </select>
             </div>
-          </div>
-          <label for="jornada">¿Qué jornada te interesa?</label>
-          <select id="jornada" name="jornada">
-            <option value="">Aún no lo sé</option>
-            <option value="Mañana">Mañana (8:30 - 12:30)</option>
-            <option value="Completa">Jornada completa (8:30 - 16:30)</option>
-            <option value="Tarde">Tarde (14:00 - 16:30)</option>
-          </select>
-          <label for="source">¿Cómo nos encontraste?</label>
-          <select id="source" name="source">
-            <option value="">Selecciona...</option>
-            <option value="Instagram">Instagram</option>
-            <option value="Google">Google</option>
-            <option value="Recomendación">Recomendación de otra familia</option>
-            <option value="Facebook">Facebook</option>
-            <option value="Otro">Otro</option>
-          </select>
+          </details>
+
           <button type="submit" class="btn btn-primary" style="margin-top:var(--space-sm);width:100%;justify-content:center;">Quiero agendar una visita</button>
           <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-top:var(--space-xs);">Ximena te responderá en pocas horas para coordinar la visita</p>
         </form>
