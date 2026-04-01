@@ -78,15 +78,48 @@
     <div class="contact-grid">
       <!-- Left: Form -->
       <div class="contact-form">
-        <form action="https://formspree.io/f/PLACEHOLDER" method="POST">
-          <label for="name">Nombre</label>
-          <input type="text" id="name" name="name" required>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-          <label for="phone">Teléfono</label>
-          <input type="tel" id="phone" name="phone">
-          <label for="message">Mensaje</label>
-          <textarea id="message" name="message" required placeholder="Cuéntanos qué te gustaría saber..."></textarea>
+        <form id="leadForm" onsubmit="handleSubmit(event)">
+          <label for="nombre">Tu nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
+            <div>
+              <label for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+56 9 ..." required>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="tu@email.com">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
+            <div>
+              <label for="nombre_nino">Nombre del niño/a</label>
+              <input type="text" id="nombre_nino" name="nombre_nino" placeholder="Nombre">
+            </div>
+            <div>
+              <label for="edad">Edad del niño/a</label>
+              <select id="edad" name="edad">
+                <option value="">Selecciona</option>
+                <option value="6-12 meses">6 a 12 meses</option>
+                <option value="1 año">1 año</option>
+                <option value="1 año y medio">1 año y medio</option>
+                <option value="2 años">2 años</option>
+                <option value="2 años y medio">2 años y medio</option>
+                <option value="3 años">3 años</option>
+                <option value="3 años y medio">3 años y medio</option>
+                <option value="4 años">4 años</option>
+                <option value="4 años y medio">4 años y medio</option>
+                <option value="5 años o más">5 años o más</option>
+              </select>
+            </div>
+          </div>
+          <label for="jornada">¿Qué jornada te interesa?</label>
+          <select id="jornada" name="jornada">
+            <option value="">Aún no lo sé</option>
+            <option value="Mañana">Mañana (8:30 - 12:30)</option>
+            <option value="Completa">Jornada completa (8:30 - 16:30)</option>
+            <option value="Tarde">Tarde (14:00 - 16:30)</option>
+          </select>
           <label for="source">¿Cómo nos encontraste?</label>
           <select id="source" name="source">
             <option value="">Selecciona...</option>
@@ -96,8 +129,13 @@
             <option value="Facebook">Facebook</option>
             <option value="Otro">Otro</option>
           </select>
-          <button type="submit" class="btn btn-primary" style="margin-top:var(--space-sm);">Enviar mensaje</button>
+          <button type="submit" class="btn btn-primary" style="margin-top:var(--space-sm);width:100%;justify-content:center;">Quiero agendar una visita</button>
+          <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-top:var(--space-xs);">Ximena te responderá en pocas horas para coordinar la visita</p>
         </form>
+        <div id="formSuccess" style="display:none;text-align:center;padding:2rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.8rem;color:var(--verde);margin-bottom:0.5rem;">¡Recibimos tu mensaje!</h3>
+          <p>Ximena te contactará pronto para coordinar tu visita a Bianca Stella.</p>
+        </div>
       </div>
 
       <!-- Right: Info -->
@@ -168,5 +206,31 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V60WSFE5XG"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V60WSFE5XG');</script>
 <script src="../js/main.js"></script>
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyP-yzAudyNhg5sm4ZzsKlhHxG01SwKhvKE-4qMuE-lo_qgywwKG3HabqpOrIxMhRpzUQ/exec';
+
+  try {
+    await fetch(SCRIPT_URL, { method: 'POST', body: data });
+    form.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  } catch (err) {
+    const nombre = data.get('nombre');
+    const nino = data.get('nombre_nino');
+    const edad = data.get('edad');
+    const jornada = data.get('jornada') || 'Aún no definida';
+    const msg = encodeURIComponent('Hola, soy ' + nombre + '. Me interesa agendar una visita al Playgroup para ' + nino + ' (' + edad + '). Jornada: ' + jornada + '.');
+    window.open('https://wa.me/56953667384?text=' + msg, '_blank');
+    btn.textContent = 'Enviado ✓';
+  }
+}
+</script>
 </body>
 </html>
