@@ -1,750 +1,547 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bianca Stella — Playgroup Primera Infancia</title>
-    <meta name="description" content="Playgroup inspirado en la filosofía Reggio Emilia, en 2.500m² de naturaleza. Últimos cupos 2026. Agenda tu visita.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --rosa: #dbb4ac;
-            --rosa-light: #f7efed;
-            --rosa-mid: #e8cdc7;
-            --verde: #142a2e;
-            --verde-light: #1e3d42;
-            --turquesa: #0AA2C0;
-            --turquesa-light: #0dbfe0;
-            --gris: #f0f4f5;
-            --gris-warm: #f8f5f3;
-            --blanco: #ffffff;
-            --texto: #2a2a2a;
-            --texto-light: #5a5a5a;
-            --font-display: 'Cormorant Garamond', Georgia, serif;
-            --font-body: 'Raleway', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; font-size: 16px; }
-
-        body {
-            font-family: var(--font-body);
-            color: var(--texto);
-            background: var(--blanco);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ========== ANIMATIONS ========== */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes softPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        .anim { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .anim.visible { opacity: 1; transform: translateY(0); }
-
-        /* ========== NAVBAR ========== */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.4s ease; background: transparent;
-        }
-        .navbar.scrolled {
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(20,42,46,0.08); padding: 0.7rem 2rem;
-        }
-        .navbar-logo { height: 50px; transition: height 0.4s ease; }
-        .navbar.scrolled .navbar-logo { height: 40px; }
-        .navbar-cta {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.6rem 1.5rem; background: var(--turquesa); color: white;
-            text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            letter-spacing: 0.03em; border-radius: 50px; transition: all 0.3s ease;
-        }
-        .navbar-cta:hover { background: var(--turquesa-light); transform: translateY(-1px); box-shadow: 0 4px 15px rgba(10,162,192,0.3); }
-
-        /* ========== HERO ========== */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            position: relative; overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute; inset: 0;
-            background-image: url('landing_fotos_hero.jpg');
-            background-size: cover; background-position: center 40%;
-        }
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(20,42,46,0.88) 0%, rgba(20,42,46,0.65) 40%, rgba(20,42,46,0.4) 100%);
-        }
-        .hero-content {
-            position: relative; z-index: 2; max-width: 1200px;
-            margin: 0 auto; padding: 8rem 2rem 4rem;
-        }
-        .hero-eyebrow {
-            font-weight: 500; font-size: 0.8rem; letter-spacing: 0.2em;
-            text-transform: uppercase; color: var(--turquesa); margin-bottom: 0.5rem;
-            animation: fadeUp 0.8s ease both 0.2s;
-        }
-        .hero-title {
-            font-family: var(--font-display); font-weight: 400;
-            font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1;
-            color: var(--blanco); max-width: 700px;
-            animation: fadeUp 0.8s ease both 0.4s;
-        }
-        .hero-title em { font-style: italic; color: var(--rosa); }
-        .hero-subtitle {
-            font-weight: 300; font-size: 1.1rem; color: rgba(255,255,255,0.75);
-            max-width: 500px; line-height: 1.7; margin-top: 1rem;
-            animation: fadeUp 0.8s ease both 0.6s;
-        }
-        .hero-actions {
-            display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem;
-            animation: fadeUp 0.8s ease both 0.8s;
-        }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem; background: rgba(219,180,172,0.15);
-            border: 1px solid rgba(219,180,172,0.3); border-radius: 50px;
-            color: var(--rosa); font-size: 0.8rem; font-weight: 500;
-            margin-top: 1.5rem; animation: fadeUp 0.8s ease both 1s;
-        }
-        .hero-badge .dot {
-            width: 8px; height: 8px; background: var(--rosa);
-            border-radius: 50%; animation: softPulse 2s ease infinite;
-        }
-
-        /* ========== BUTTONS ========== */
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 1rem 2rem; background: var(--turquesa); color: white;
-            text-decoration: none; font-family: var(--font-body);
-            font-weight: 600; font-size: 0.95rem; border-radius: 50px;
-            border: none; cursor: pointer; transition: all 0.3s ease;
-        }
-        .btn-primary:hover { background: var(--turquesa-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(10,162,192,0.35); }
-        .btn-whatsapp {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 1rem 2rem; background: #25D366; color: white;
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            border-radius: 50px; transition: all 0.3s ease;
-        }
-        .btn-whatsapp:hover { background: #20bd5a; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.35); }
-
-        /* ========== SECTIONS ========== */
-        section { padding: 6rem 2rem; }
-        .inner { max-width: 1100px; margin: 0 auto; }
-        .eyebrow {
-            font-weight: 600; font-size: 0.75rem; letter-spacing: 0.2em;
-            text-transform: uppercase; color: var(--turquesa); margin-bottom: 1rem;
-        }
-        .stitle {
-            font-family: var(--font-display); font-weight: 400;
-            font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15;
-            color: var(--verde); margin-bottom: 1.5rem;
-        }
-        .stitle em { font-style: italic; color: var(--turquesa); }
-
-        /* ========== PHOTO MOSAIC (after hero) ========== */
-        .mosaic {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 4px; max-width: 100%;
-        }
-        .mosaic img {
-            width: 100%; height: 200px; object-fit: cover;
-            transition: transform 0.4s ease; cursor: pointer;
-        }
-        .mosaic img:hover { transform: scale(1.03); z-index: 2; }
-
-        /* ========== PROBLEM / SOLUTION ========== */
-        .problem-section {
-            background: var(--gris-warm); position: relative;
-        }
-        .problem-section::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 1px; background: linear-gradient(90deg, transparent, var(--rosa-mid), transparent);
-        }
-        .problem-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
-        }
-        .pcard {
-            padding: 2.5rem; border-radius: 20px; background: white;
-            border: 1px solid rgba(219,180,172,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-        }
-        .pcard:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(20,42,46,0.06); }
-        .pcard-img {
-            width: 100%; height: 280px; object-fit: cover; object-position: center 30%; border-radius: 12px; margin-bottom: 1.5rem;
-        }
-        .pcard h3 {
-            font-family: var(--font-display); font-weight: 500; font-size: 1.4rem;
-            color: var(--verde); margin-bottom: 0.8rem;
-        }
-        .pcard p { color: var(--texto-light); font-size: 0.95rem; line-height: 1.7; }
-
-        /* ========== FEATURES ========== */
-        .features-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-top: 3rem;
-        }
-        .fcard {
-            border-radius: 16px; background: var(--verde); color: white;
-            overflow: hidden; transition: transform 0.3s ease; position: relative;
-        }
-        .fcard::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; background: var(--turquesa);
-        }
-        .fcard:hover { transform: translateY(-5px); }
-        .fcard-img { width: 100%; height: 160px; object-fit: cover; }
-        .fcard-body { padding: 1.5rem; text-align: center; }
-        .fcard h3 {
-            font-family: var(--font-display); font-weight: 500; font-size: 1.15rem;
-            margin-bottom: 0.5rem; color: var(--rosa);
-        }
-        .fcard p { font-size: 0.82rem; line-height: 1.6; color: rgba(255,255,255,0.7); font-weight: 300; }
-
-        /* ========== VIDEO SECTION ========== */
-        .video-section { background: var(--gris-warm); text-align: center; }
-        .video-container {
-            max-width: 800px; margin: 2rem auto 0; border-radius: 16px;
-            overflow: hidden; box-shadow: 0 15px 50px rgba(20,42,46,0.12);
-            aspect-ratio: 16/9; background: var(--verde);
-        }
-        .video-container iframe { width: 100%; height: 100%; border: none; }
-        .video-placeholder {
-            width: 100%; height: 100%; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; color: rgba(255,255,255,0.5);
-            font-size: 0.9rem; gap: 0.5rem;
-        }
-        .video-placeholder span { font-size: 3rem; }
-
-        /* ========== TESTIMONIALS ========== */
-        .test-section {
-            background: var(--verde); position: relative; overflow: hidden;
-        }
-        .test-section::before {
-            content: ''; position: absolute; left: -10%; bottom: -20%;
-            width: 40%; height: 60%; border-radius: 50%; background: rgba(219,180,172,0.06);
-        }
-        .test-section .eyebrow { color: var(--rosa); }
-        .test-section .stitle { color: white; }
-        .test-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-            margin-top: 3rem; position: relative; z-index: 2;
-        }
-        .tcard {
-            padding: 2rem; border-radius: 16px; background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-        .tcard:hover { background: rgba(255,255,255,0.08); border-color: rgba(219,180,172,0.3); }
-        .tcard-stars { color: #fbbf24; font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
-        .tcard-text {
-            font-family: var(--font-display); font-style: italic; font-size: 1.05rem;
-            line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 1.2rem;
-        }
-        .tcard-author { font-weight: 500; font-size: 0.8rem; color: var(--rosa); letter-spacing: 0.05em; }
-        .tcard-source { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
-
-        /* ========== PRICING ========== */
-        .pricing-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
-        }
-        .prcard {
-            padding: 2.5rem 2rem; border-radius: 20px; background: white;
-            border: 2px solid var(--gris); text-align: center; transition: all 0.3s ease; position: relative;
-        }
-        .prcard.feat { border-color: var(--turquesa); transform: scale(1.03); }
-        .prcard.feat::before {
-            content: 'Más popular'; position: absolute; top: -12px; left: 50%;
-            transform: translateX(-50%); padding: 0.3rem 1rem; background: var(--turquesa);
-            color: white; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
-            text-transform: uppercase; border-radius: 50px;
-        }
-        .prcard:hover { border-color: var(--rosa); box-shadow: 0 15px 40px rgba(20,42,46,0.08); }
-        .prcard-name {
-            font-weight: 600; font-size: 0.75rem; letter-spacing: 0.15em;
-            text-transform: uppercase; color: var(--turquesa); margin-bottom: 0.5rem;
-        }
-        .prcard-sched { font-size: 0.85rem; color: var(--texto-light); margin-bottom: 1.5rem; line-height: 1.5; }
-        .prcard-price { font-family: var(--font-display); font-size: 2.5rem; font-weight: 500; color: var(--verde); }
-        .prcard-price span { font-size: 1rem; color: var(--texto-light); font-weight: 400; }
-        .prcard-mat { font-size: 0.8rem; color: var(--texto-light); margin-top: 0.5rem; margin-bottom: 1.5rem; }
-        .prcard-list { list-style: none; text-align: left; margin-bottom: 2rem; }
-        .prcard-list li {
-            padding: 0.4rem 0; font-size: 0.85rem; color: var(--texto-light);
-            display: flex; align-items: flex-start; gap: 0.5rem;
-        }
-        .prcard-list li::before { content: '✓'; color: var(--turquesa); font-weight: 700; flex-shrink: 0; }
-        .prcard .btn-primary { width: 100%; justify-content: center; font-size: 0.85rem; }
-
-        /* ========== CONTACT ========== */
-        .contact-section { background: var(--gris-warm); position: relative; }
-        .contact-section::before {
-            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-            height: 1px; background: linear-gradient(90deg, transparent, var(--rosa-mid), transparent);
-        }
-        .contact-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-            margin-top: 3rem; align-items: start;
-        }
-        .contact-info h3 {
-            font-family: var(--font-display); font-weight: 500; font-size: 1.5rem;
-            color: var(--verde); margin-bottom: 1rem;
-        }
-        .contact-info p { color: var(--texto-light); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
-        .cdetail { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
-        .cdetail-icon {
-            width: 40px; height: 40px; border-radius: 10px; background: var(--rosa-light);
-            display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
-        }
-        .cdetail-text { font-size: 0.9rem; color: var(--texto-light); }
-        .cdetail-text strong { display: block; color: var(--verde); font-weight: 600; margin-bottom: 0.2rem; }
-        .cform {
-            background: white; padding: 2.5rem; border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(20,42,46,0.06);
-        }
-        .fgroup { margin-bottom: 1.2rem; }
-        .fgroup label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--verde); margin-bottom: 0.4rem; }
-        .fgroup input, .fgroup select {
-            width: 100%; padding: 0.8rem 1rem; border: 1.5px solid #e5e5e5;
-            border-radius: 10px; font-family: var(--font-body); font-size: 0.9rem;
-            color: var(--texto); background: var(--gris-warm); transition: all 0.3s ease; outline: none;
-        }
-        .fgroup input:focus, .fgroup select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(10,162,192,0.1); background: white; }
-        .fgroup input::placeholder { color: #b0b0b0; }
-        .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .form-submit { width: 100%; margin-top: 0.5rem; }
-        .fdivider { display: flex; align-items: center; gap: 1rem; margin: 1.2rem 0; color: var(--texto-light); font-size: 0.8rem; }
-        .fdivider::before, .fdivider::after { content: ''; flex: 1; height: 1px; background: #e5e5e5; }
-        .form-wa { width: 100%; justify-content: center; }
-        .fnote { font-size: 0.75rem; color: #999; text-align: center; margin-top: 1rem; }
-        .form-success { display: none; text-align: center; padding: 2rem; }
-        .form-success.show { display: block; }
-        .form-success h3 { font-family: var(--font-display); font-size: 1.8rem; color: var(--verde); margin-bottom: 0.5rem; }
-        .form-success p { color: var(--texto-light); font-size: 0.95rem; }
-
-        /* ========== FOOTER ========== */
-        .footer { background: var(--verde); padding: 3rem 2rem; text-align: center; }
-        .footer-logo { height: 45px; margin-bottom: 1.5rem; opacity: 0.8; }
-        .footer-text {
-            font-family: var(--font-display); font-style: italic; font-size: 1.1rem;
-            color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto 1.5rem;
-        }
-        .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-        .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--rosa); }
-
-        /* ========== FLOATING WA ========== */
-        .floating-wa {
-            position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px;
-            background: #25D366; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-            z-index: 99; transition: all 0.3s ease; text-decoration: none;
-        }
-        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
-        .floating-wa svg { width: 30px; height: 30px; fill: white; }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 900px) {
-            .problem-grid, .contact-grid, .test-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .features-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-            .pricing-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .prcard.feat { transform: scale(1); }
-            .hero-content { padding: 7rem 1.5rem 3rem; }
-            section { padding: 4rem 1.5rem; }
-            .frow { grid-template-columns: 1fr; }
-            .mosaic { grid-template-columns: 1fr 1fr; }
-            .mosaic img { height: 150px; }
-        }
-        @media (max-width: 600px) {
-            .features-grid { grid-template-columns: 1fr; }
-            .navbar-cta span { display: none; }
-            .hero-actions { flex-direction: column; }
-            .btn-primary, .btn-whatsapp { width: 100%; justify-content: center; }
-            .mosaic { grid-template-columns: 1fr 1fr; }
-            .mosaic img { height: 120px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bianca Stella — Proyecto de Primera Infancia | Reggio Emilia</title>
+  <meta name="description" content="Proyecto de primera infancia inspirado en Reggio Emilia. 8 años, 200+ familias, 2.500m² de naturaleza. Playgroup para niños de 1 a 5 años en Santiago.">
+  <meta property="og:title" content="Bianca Stella — Proyecto de Primera Infancia">
+  <meta property="og:description" content="No somos un jardín. Somos donde jugar es aprender. 8 años acompañando a más de 200 familias.">
+  <meta property="og:image" content="img/hero.jpg">
+  <meta property="og:url" content="https://biancastella.cl">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="img/logo_bs.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHJHM3W');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Bianca Stella",
+  "description": "Proyecto de primera infancia inspirado en la filosofía Reggio Emilia",
+  "url": "https://biancastella.cl",
+  "telephone": "+56953667384",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Parcela 19, Las Rosas",
+    "addressLocality": "Santiago",
+    "addressCountry": "CL"
+  },
+  "openingHours": ["Mo-Fr 08:30-16:30"],
+  "priceRange": "$199.000 - $389.000 CLP/mes"
+}
+</script>
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-        <img src="logo_bs.png" alt="Bianca Stella" class="navbar-logo">
-        <a href="#contacto" class="navbar-cta">
-            <span>Agenda tu visita</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-    </nav>
+<!-- ============================================
+     Section 1: Navbar
+     ============================================ -->
+<nav class="navbar transparent">
+  <div class="container">
+    <a href="/" class="nav-logo"><img src="img/logo_bs.png" alt="Bianca Stella"></a>
+    <div class="nav-links">
+      <a href="/">Inicio</a>
+      <a href="/celebraciones/">Celebraciones</a>
+      <a href="/talleres/">Talleres</a>
+      <a href="/nosotros/">Nosotros</a>
+      <a href="/contacto/">Contacto</a>
+    </div>
+    <div class="nav-cta"><a href="https://wa.me/56953667384" class="btn btn-primary">Agenda tu visita</a></div>
+    <button class="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-mobile">
+  <a href="/">Inicio</a>
+  <a href="/celebraciones/">Celebraciones</a>
+  <a href="/talleres/">Talleres</a>
+  <a href="/nosotros/">Nosotros</a>
+  <a href="/contacto/">Contacto</a>
+  <a href="https://wa.me/56953667384" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Agenda tu visita</a>
+</div>
 
-    <!-- HERO with photo background -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-eyebrow">Playgroup · Primera Infancia</div>
-            <h1 class="hero-title">Un espacio donde tu hijo/a <em>explora, crece y aprende</em> a su ritmo y jugando</h1>
-            <p class="hero-subtitle">Playgroup inspirado en la filosofía Reggio Emilia, en 2.500m² de naturaleza. Para niños y niñas de 1 a 6 años.</p>
-            <div class="hero-actions">
-                <a href="#contacto" class="btn-primary">
-                    Agenda tu visita
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-                <a href="https://wa.me/56953667384?text=Hola%2C%20me%20interesa%20conocer%20el%20Playgroup%20de%20Bianca%20Stella" class="btn-whatsapp" target="_blank">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    WhatsApp directo
-                </a>
-            </div>
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Últimos cupos disponibles 2026
-            </div>
-        </div>
-    </section>
+<!-- ============================================
+     Section 2: Hero + Stats Bar
+     ============================================ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge anim">&#10003; Cupos disponibles 2026</div>
+    <h1 class="anim anim-delay-1"><strong>No somos un jardín.</strong><br>Somos donde <em>jugar es aprender</em></h1>
+    <p class="hero-sub anim anim-delay-2">8 años acompañando a más de 200 familias con una propuesta inspirada en la filosofía Reggio Emilia en 2.500m² de naturaleza, animales y arte.</p>
+    <div class="hero-actions anim anim-delay-3">
+      <a href="https://wa.me/56953667384" class="btn btn-primary">Agenda tu visita</a>
+      <a href="https://wa.me/56953667384" class="btn btn-wa">&#9742; WhatsApp</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="img/hero.jpg" alt="Niños explorando en Bianca Stella">
+    <div class="hero-accent"></div>
+  </div>
+</section>
 
-    <!-- PHOTO MOSAIC -->
-    <div class="mosaic">
-        <img src="landing_fotos_huerto.jpg" alt="Niña cosechando tomates en el huerto" loading="lazy">
-        <img src="landing_fotos_cocina.jpg" alt="Niña amasando en atelier de cocina" loading="lazy">
-        <img src="landing_fotos_sombras.jpg" alt="Niño descubriendo sombras" loading="lazy">
-        <img src="landing_fotos_mesa_luz.jpg" alt="Exploración sensorial en mesa de luz" loading="lazy">
+<div class="stats-bar">
+  <div class="container">
+    <div class="stat-item anim">
+      <div class="stat-number" data-count="8" data-suffix="+">0</div>
+      <div class="stat-label">Años</div>
+    </div>
+    <div class="stat-item anim anim-delay-1">
+      <div class="stat-number" data-count="200" data-suffix="+">0</div>
+      <div class="stat-label">Familias</div>
+    </div>
+    <div class="stat-item anim anim-delay-2">
+      <div class="stat-number">2.500m²</div>
+      <div class="stat-label">Naturaleza</div>
+    </div>
+    <div class="stat-item anim anim-delay-3">
+      <div class="stat-number" data-count="50">0</div>
+      <div class="stat-label">Niños</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     Section 3: Qué es BS + 3 Pilares
+     ============================================ -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);align-items:center;margin-bottom:var(--space-xl);">
+      <div>
+        <span class="eyebrow anim">Proyecto de Primera Infancia</span>
+        <h2 class="anim anim-delay-1">Cada niño es <em>protagonista</em> de su propio aprendizaje</h2>
+        <p class="anim anim-delay-2" style="margin-top:var(--space-sm);">Bianca Stella es un proyecto de primera infancia inspirado en la filosofía Reggio Emilia, donde niños y niñas de 1 a 5 años co-construyen su aprendizaje acompañados por guías formadas, en un entorno de 2.500m² de naturaleza y animales.</p>
+      </div>
+      <div class="anim anim-delay-2">
+        <img src="img/ninos_exterior.jpg" alt="Niños explorando al aire libre" style="border-radius:var(--radius-md);width:100%;object-fit:cover;">
+      </div>
     </div>
 
-    <!-- PROBLEM / SOLUTION -->
-    <section class="problem-section">
-        <div class="inner anim">
-            <div class="eyebrow">¿Te identificas?</div>
-            <h2 class="stitle">Muchas familias sienten que algo <em>no calza</em></h2>
-            <div class="problem-grid">
-                <div class="pcard">
-                    <img src="landing_fotos_construccion.jpg" alt="Niños jugando con construcción" class="pcard-img">
-                    <h3>Lo que preocupa</h3>
-                    <p>Tu hijo pierde la curiosidad que tanto lo caracterizaba. Le piden que se quede quieto, que no pregunte tanto, que haga lo mismo que todos. Llega frustrado o apático. Sientes que no lo ven realmente.</p>
-                </div>
-                <div class="pcard">
-                    <img src="landing_fotos_ninos_exterior.jpg" alt="Niños jugando libres en el arenero bajo un árbol" class="pcard-img">
-                    <h3>Lo que ofrecemos</h3>
-                    <p>Un espacio donde cada niño es protagonista. Donde la curiosidad se celebra, el movimiento es bienvenido y el aprendizaje nace del juego libre, la exploración y el asombro. Donde tu hijo vuelve a brillar.</p>
-                </div>
-            </div>
+    <div class="pillars-grid">
+      <div class="pillar-card card anim">
+        <span class="pillar-emoji">&#x1F9D8;</span>
+        <h3>Presencia &amp; Regulación</h3>
+        <p>No trabajamos para evitar emociones difíciles, sino para atravesarlas. Respetamos tiempos reales, modelamos calma, sostenemos emociones sin apurarlas. La frustración es parte del crecimiento.</p>
+      </div>
+      <div class="pillar-card card anim anim-delay-1">
+        <span class="pillar-emoji">&#x1F331;</span>
+        <h3>Vida, Procesos y Transformación</h3>
+        <p>Los niños aprenden desde la experiencia directa de ciclos reales. Los procesos importan más que el resultado inmediato. La espera hace visible el crecimiento.</p>
+      </div>
+      <div class="pillar-card card anim anim-delay-2">
+        <span class="pillar-emoji">&#x2B50;</span>
+        <h3>Capacidad, Autoeficacia &amp; Crecimiento Personal</h3>
+        <p>Trabajamos la autoestima desde la construcción de la capacidad real. Permitimos el error, sostenemos la frustración, celebramos proceso más que resultado. Mejora personal, no comparación externa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 4: Cómo acompañamos
+     ============================================ -->
+<section class="section section-dark">
+  <div class="container">
+    <span class="eyebrow anim">Nuestra filosofía en acción</span>
+    <h2 class="anim anim-delay-1">No dejamos jugar. <em>Acompañamos</em> el juego con intención.</h2>
+    <p class="anim anim-delay-2" style="max-width:700px;margin-bottom:var(--space-lg);">Detrás de cada experiencia en Bianca Stella hay un proceso pedagógico riguroso que respeta los tiempos y curiosidades de cada niño.</p>
+
+    <div class="impact-phrase anim" style="margin-bottom:var(--space-xl);">
+      <h2>"Aquí, los niños y niñas construyen su propio camino."</h2>
+    </div>
+
+    <div class="dark-sub-block--lighter">
+      <div class="method-steps anim">
+        <div class="method-step">
+          <div class="step-number">1</div>
+          <h4 style="color:var(--white);">Observar</h4>
+          <p>Miramos sin intervenir. Identificamos intereses, dinámicas y señales.</p>
         </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section>
-        <div class="inner anim">
-            <div class="eyebrow">¿Por qué Bianca Stella?</div>
-            <h2 class="stitle">Cinco cosas que nos hacen <em>diferentes</em></h2>
-            <div class="features-grid">
-                <div class="fcard">
-                    <img src="landing_fotos_hero.jpg" alt="2500m² de naturaleza" class="fcard-img">
-                    <div class="fcard-body">
-                        <h3>2.500m² para explorar</h3>
-                        <p>Huerto propio, gallinero, tres patios, arenero y espacios al aire libre. Un entorno real donde los niños aprenden con todos sus sentidos, lejos de las cuatro paredes de una sala.</p>
-                    </div>
-                </div>
-                <div class="fcard">
-                    <img src="landing_fotos_mesa_luz.jpg" alt="Exploración sensorial Reggio Emilia" class="fcard-img">
-                    <div class="fcard-body">
-                        <h3>Filosofía Reggio Emilia</h3>
-                        <p>Con más de 80 años de historia, es reconocida como una de las mejores pedagogías del mundo. El niño es co-constructor de su propio aprendizaje.</p>
-                    </div>
-                </div>
-                <div class="fcard">
-                    <img src="landing_fotos_gallinas.jpg" alt="Niños alimentando gallinas" class="fcard-img">
-                    <div class="fcard-body">
-                        <h3>Grupos pequeños</h3>
-                        <p>De 6 a 15 niños por adulto. Stella (1-2 años): 3 adultos. Luna (2-4 años): 2 adultos. Sole (4-6 años): 1 adulto. Atención personalizada real.</p>
-                    </div>
-                </div>
-                <div class="fcard">
-                    <img src="landing_fotos_cocina.jpg" alt="Atelier de cocina" class="fcard-img">
-                    <div class="fcard-body">
-                        <h3>Ateliers y talleres</h3>
-                        <p>Cada experiencia se desarrolla como un taller donde los niños investigan: cocina, construcción, arte, ciencias. Distintos tipos de aprendizajes y habilidades — sin que se den cuenta, aprenden.</p>
-                    </div>
-                </div>
-                <div class="fcard">
-                    <img src="landing_fotos_ninos_exterior.jpg" alt="Niños resolviendo juntos" class="fcard-img">
-                    <div class="fcard-body">
-                        <h3>Herramientas para la vida</h3>
-                        <p>La frustración es parte de la vida real. Enseñamos técnicas de respiración, mindfulness y herramientas para resolver conflictos, haciendo a cada niño consciente de sus capacidades.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="method-step">
+          <div class="step-number">2</div>
+          <h4 style="color:var(--white);">Documentar</h4>
+          <p>Registramos procesos con fotos, videos y notas. Hacemos visible el aprendizaje.</p>
         </div>
-    </section>
-
-    <!-- VIDEO -->
-    <section class="video-section">
-        <div class="inner anim">
-            <div class="eyebrow">Conócenos</div>
-            <h2 class="stitle">Así se vive un día en <em>Bianca Stella</em></h2>
-            <div class="video-container">
-                <!-- REEMPLAZAR: subir video a YouTube (no listado) y pegar el embed -->
-                <!-- <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" allowfullscreen></iframe> -->
-                <div class="video-placeholder">
-                    <span>▶</span>
-                    Video próximamente
-                </div>
-            </div>
+        <div class="method-step">
+          <div class="step-number">3</div>
+          <h4 style="color:var(--white);">Provocar</h4>
+          <p>Preparamos materiales y espacios que inviten a profundizar la curiosidad.</p>
         </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="test-section">
-        <div class="inner anim">
-            <div class="eyebrow">Familias reales</div>
-            <h2 class="stitle">Lo que dicen quienes ya <em>nos eligieron</em></h2>
-            <div class="test-grid">
-                <div class="tcard">
-                    <div class="tcard-stars">★★★★★</div>
-                    <p class="tcard-text">"Mi hijo se despierta con ganas de ir a su jardín, cosa que no pasó en el anterior. Avances agigantados en tan solo un mes. Se nota el amor, la alegría y el gusto por lo que realizan."</p>
-                    <div class="tcard-author">Constanza S.</div>
-                    <div class="tcard-source">Reseña en Google</div>
-                </div>
-                <div class="tcard">
-                    <div class="tcard-stars">★★★★★</div>
-                    <p class="tcard-text">"Bianca Stella ha sido un verdadero refugio para nuestra familia. La transformación en nuestro hijo en 3 meses nos llena el alma. Su compromiso con la filosofía Reggio Emilia se nota en cada rincón."</p>
-                    <div class="tcard-author">Ximena C.</div>
-                    <div class="tcard-source">Reseña en Google</div>
-                </div>
-                <div class="tcard">
-                    <div class="tcard-stars">★★★★★</div>
-                    <p class="tcard-text">"Mis hijos van felices, son amados y respetados. Aprenden con la interacción del entorno, sus compañeros y sus guías."</p>
-                    <div class="tcard-author">Familia BS</div>
-                    <div class="tcard-source">Reseña en Google</div>
-                </div>
-                <div class="tcard">
-                    <div class="tcard-stars">★★★★★</div>
-                    <p class="tcard-text">"Jardín grande bien distribuido, con naturaleza, pasto, tierra, gallinero. Aquí aprenden jugando y compartiendo. Además tiene espacio para trabajar con wifi."</p>
-                    <div class="tcard-author">Familia BS</div>
-                    <div class="tcard-source">Reseña en Google</div>
-                </div>
-            </div>
+        <div class="method-step">
+          <div class="step-number">4</div>
+          <h4 style="color:var(--white);">Acompañar</h4>
+          <p>Sostenemos el proceso sin dirigirlo. Estamos presentes, no adelante.</p>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- PRICING -->
-    <section>
-        <div class="inner anim">
-            <div class="eyebrow">Jornadas y valores</div>
-            <h2 class="stitle">Elige la jornada que mejor se adapte <em>a tu familia</em></h2>
-            <div class="pricing-grid">
-                <div class="prcard">
-                    <div class="prcard-name">Jornada Mañana</div>
-                    <div class="prcard-sched">Lunes a viernes<br>8:00 a 12:00</div>
-                    <div class="prcard-price">$329.000 <span>/mes</span></div>
-                    <div class="prcard-mat">Matrícula: $499.000</div>
-                    <ul class="prcard-list">
-                        <li>Todos los materiales incluidos</li>
-                        <li>3 educadoras por grupo</li>
-                        <li>Acceso a todos los espacios</li>
-                        <li>Talleres extraprogramáticos disponibles</li>
-                    </ul>
-                    <a href="#contacto" class="btn-primary">Agenda tu visita</a>
-                </div>
-                <div class="prcard feat">
-                    <div class="prcard-name">Jornada Completa</div>
-                    <div class="prcard-sched">Lunes a miércoles 8:00 a 15:45<br>Jueves y viernes 8:00 a 12:00</div>
-                    <div class="prcard-price">$389.000 <span>/mes</span></div>
-                    <div class="prcard-mat">Matrícula: $998.000</div>
-                    <ul class="prcard-list">
-                        <li>Todos los materiales incluidos</li>
-                        <li>Almuerzo supervisado</li>
-                        <li>3 educadoras por grupo</li>
-                        <li>Acceso a todos los espacios</li>
-                        <li>Talleres extraprogramáticos disponibles</li>
-                    </ul>
-                    <a href="#contacto" class="btn-primary">Agenda tu visita</a>
-                </div>
-                <div class="prcard">
-                    <div class="prcard-name">Jornada Tarde</div>
-                    <div class="prcard-sched">Lunes a miércoles<br>12:00 a 15:45</div>
-                    <div class="prcard-price">$199.000 <span>/mes</span></div>
-                    <div class="prcard-mat">Matrícula: $298.000</div>
-                    <ul class="prcard-list">
-                        <li>Todos los materiales incluidos</li>
-                        <li>3 educadoras por grupo</li>
-                        <li>Acceso a todos los espacios</li>
-                        <li>Talleres extraprogramáticos disponibles</li>
-                    </ul>
-                    <a href="#contacto" class="btn-primary">Agenda tu visita</a>
-                </div>
-            </div>
+    <div class="comparison-grid anim" style="margin-bottom:var(--space-xl);">
+      <div class="comparison-col typical">
+        <h3 style="color:var(--text-muted);">Actividad típica</h3>
+        <ul>
+          <li>Viene pensada desde el adulto</li>
+          <li>Tiene resultado esperado (ficha, manualidad)</li>
+          <li>El niño sigue instrucciones</li>
+          <li>Sirve más para mostrar que para investigar</li>
+        </ul>
+      </div>
+      <div class="comparison-col bs-way">
+        <h3>Experiencia viva</h3>
+        <span class="hero-badge" style="font-size:0.7rem;padding:0.3rem 0.8rem;margin-bottom:var(--space-sm);">Así lo hacemos en BS</span>
+        <ul>
+          <li>Nace de la curiosidad real del grupo</li>
+          <li>Importa el proceso, no el resultado</li>
+          <li>El niño investiga, decide, se equivoca</li>
+          <li>El adulto acompaña, observa, registra</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dark-results-wrapper">
+      <div style="text-align:center;margin-bottom:var(--space-lg);">
+        <h3 class="anim" style="color:var(--white);">¿Qué vas a notar en <em>tu hijo/a</em>?</h3>
+        <p class="anim anim-delay-1" style="max-width:600px;margin:var(--space-sm) auto var(--space-md);">Cambios reales que las familias observan en los primeros meses.</p>
+      </div>
+
+      <div class="results-grid anim">
+        <div class="result-item">
+          <div class="result-icon">&#x1F98B;</div>
+          <h4 style="color:var(--white);">Autonomía</h4>
+          <p>Toma decisiones propias y se siente capaz</p>
         </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="contact-section" id="contacto">
-        <div class="inner anim">
-            <div class="eyebrow">Visítanos</div>
-            <h2 class="stitle">Agenda tu visita y <em>conoce el espacio</em></h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Ven a conocernos</h3>
-                    <p>Recorre nuestra naturaleza, aulas, atelieres y co-work. Conoce al equipo, observa cómo trabajamos y resuelve todas tus dudas. Tu hijo/a también es bienvenido/a.</p>
-                    <div class="cdetail">
-                        <div class="cdetail-icon">📍</div>
-                        <div class="cdetail-text">
-                            <strong>Ubicación</strong>
-                            Camino Lonquén 18001<br>Maipú, Santiago
-                        </div>
-                    </div>
-                    <div class="cdetail">
-                        <div class="cdetail-icon">🕐</div>
-                        <div class="cdetail-text">
-                            <strong>Visitas</strong>
-                            Con coordinación previa
-                        </div>
-                    </div>
-                    <div class="cdetail">
-                        <div class="cdetail-icon">📱</div>
-                        <div class="cdetail-text">
-                            <strong>WhatsApp Admisiones</strong>
-                            +56 9 5366 7384 (Ximena)
-                        </div>
-                    </div>
-                    <div class="cdetail">
-                        <div class="cdetail-icon">🌐</div>
-                        <div class="cdetail-text">
-                            <strong>Redes sociales</strong>
-                            @biancastella.cl
-                        </div>
-                    </div>
-                </div>
-                <div class="cform" id="contactForm">
-                    <form id="leadForm" onsubmit="handleSubmit(event)">
-                        <div class="fgroup">
-                            <label>Tu nombre</label>
-                            <input type="text" name="nombre" placeholder="Nombre completo" required>
-                        </div>
-                        <div class="frow">
-                            <div class="fgroup">
-                                <label>Teléfono / WhatsApp</label>
-                                <input type="tel" name="telefono" placeholder="+56 9 ..." required>
-                            </div>
-                            <div class="fgroup">
-                                <label>Email</label>
-                                <input type="email" name="email" placeholder="tu@email.com">
-                            </div>
-                        </div>
-                        <div class="frow">
-                            <div class="fgroup">
-                                <label>Nombre del niño/a</label>
-                                <input type="text" name="nombre_nino" placeholder="Nombre" required>
-                            </div>
-                            <div class="fgroup">
-                                <label>Edad del niño/a</label>
-                                <select name="edad" required>
-                                    <option value="">Selecciona</option>
-                                    <option value="6-12 meses">6 a 12 meses</option>
-                                    <option value="1 año">1 año</option>
-                                    <option value="1 año y medio">1 año y medio</option>
-                                    <option value="2 años">2 años</option>
-                                    <option value="2 años y medio">2 años y medio</option>
-                                    <option value="3 años">3 años</option>
-                                    <option value="3 años y medio">3 años y medio</option>
-                                    <option value="4 años">4 años</option>
-                                    <option value="4 años y medio">4 años y medio</option>
-                                    <option value="5 años o más">5 años o más</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="fgroup">
-                            <label>¿Qué jornada te interesa?</label>
-                            <select name="jornada">
-                                <option value="">Aún no lo sé</option>
-                                <option value="Mañana">Mañana (8:00 - 12:00)</option>
-                                <option value="Completa">Completa (8:00 - 15:45)</option>
-                                <option value="Tarde">Tarde (12:00 - 15:45)</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-primary form-submit">
-                            Quiero agendar una visita
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </button>
-                        <div class="fdivider">o si preferís</div>
-                        <a href="https://wa.me/56953667384?text=Hola%2C%20me%20interesa%20agendar%20una%20visita%20al%20Playgroup%20de%20Bianca%20Stella" class="btn-whatsapp form-wa" target="_blank">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            Escribir por WhatsApp
-                        </a>
-                        <p class="fnote">Ximena te responderá en pocas horas para coordinar la visita</p>
-                    </form>
-                    <div class="form-success" id="formSuccess">
-                        <h3>¡Recibimos tu mensaje! 🌟</h3>
-                        <p>Ximena te contactará pronto para coordinar tu visita a Bianca Stella.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="result-item">
+          <div class="result-icon">&#x1F9E9;</div>
+          <h4 style="color:var(--white);">Resolución</h4>
+          <p>Enfrenta problemas y busca soluciones</p>
         </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <img src="logo_bs.png" alt="Bianca Stella" class="footer-logo">
-        <p class="footer-text">"Cada niño es un universo de posibilidades esperando ser descubierto."</p>
-        <div class="footer-links">
-            <a href="https://www.instagram.com/biancastella.cl/" target="_blank">Instagram</a>
-            <a href="https://www.facebook.com/biancastella.cl/" target="_blank">Facebook</a>
-            <a href="https://www.biancastella.cl" target="_blank">biancastella.cl</a>
-            <a href="https://wa.me/56953667384" target="_blank">WhatsApp</a>
+        <div class="result-item">
+          <div class="result-icon">&#x1F50D;</div>
+          <h4 style="color:var(--white);">Curiosidad activa</h4>
+          <p>Pregunta, investiga, no espera que le digan</p>
         </div>
-    </footer>
+        <div class="result-item">
+          <div class="result-icon">&#x1F49A;</div>
+          <h4 style="color:var(--white);">Regulación emocional</h4>
+          <p>Expresa lo que siente y pone límites</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">&#x1F331;</div>
+          <h4 style="color:var(--white);">Vínculo natural</h4>
+          <p>Conexión con la tierra, los animales y lo vivo</p>
+        </div>
+      </div>
+    </div>
 
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/56953667384?text=Hola%2C%20me%20interesa%20el%20Playgroup%20de%20Bianca%20Stella" class="floating-wa" target="_blank" title="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
+    <div class="quote-block anim" style="margin-top:var(--space-xl);">
+      <blockquote style="color:var(--white);">
+        "El niño tiene cien lenguajes, cien manos, cien pensamientos, cien formas de pensar, de jugar y de hablar."
+      </blockquote>
+      <cite style="color:rgba(255,255,255,0.6);">Loris Malaguzzi — Fundador de la filosofía Reggio Emilia</cite>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+<!-- ============================================
+     Section 5: Mosaico de fotos
+     ============================================ -->
+<section class="section">
+  <div class="container">
+    <div class="mosaic-grid">
+      <div class="mosaic-item mosaic-wide anim"><img src="img/huerto.jpg" alt="Huerto de Bianca Stella"></div>
+      <div class="mosaic-item anim anim-delay-1"><img src="img/gallinas.jpg" alt="Gallinero"></div>
+      <div class="mosaic-item anim anim-delay-2"><img src="img/cocina.jpg" alt="Taller de cocina"></div>
+      <div class="mosaic-item anim"><img src="img/mesa_luz.jpg" alt="Mesa de luz"></div>
+      <div class="mosaic-item anim anim-delay-1"><img src="img/construccion.jpg" alt="Atelier de construcción"></div>
+      <div class="mosaic-item mosaic-wide anim anim-delay-2"><img src="img/ninos_exterior.jpg" alt="Niños en el exterior"></div>
+    </div>
+  </div>
+</section>
 
-        // Navbar scroll
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-        });
+<!-- ============================================
+     Section 6: Nuestros espacios — Aulas y Ateliers
+     ============================================ -->
+<section class="section section-light">
+  <div class="container">
+    <span class="eyebrow anim">Nuestros espacios</span>
+    <h2 class="anim anim-delay-1">Cada espacio tiene una <em>intención</em></h2>
+    <p class="anim anim-delay-2" style="max-width:700px;margin-bottom:var(--space-lg);">En Bianca Stella, cada aula, atelier y patio ha sido pensado para responder a las necesidades reales de la infancia: moverse, investigar, crear, observar, descansar, vincularse y aprender desde la experiencia.</p>
 
-        // Form submission
-        async function handleSubmit(e) {
-            e.preventDefault();
-            const form = e.target;
-            const data = new FormData(form);
-            const btn = form.querySelector('button[type="submit"]');
-            btn.textContent = 'Enviando...';
-            btn.disabled = true;
+    <div class="aulas-grid" style="margin-bottom:var(--space-lg);">
+      <div class="aula-card anim">
+        <span class="age-badge">1 a 2½ años</span>
+        <h3>Aula Stella</h3>
+        <p>Vínculo, exploración sensorial, movimiento, seguridad afectiva. Rincones preparados a su medida: materiales sensoriales, espacios de calma, literatura con portadas visibles.</p>
+        <div class="aula-tags">
+          <span>Exploración sensorial</span>
+          <span>Vínculo</span>
+          <span>Movimiento</span>
+          <span>Calma</span>
+        </div>
+      </div>
+      <div class="aula-card anim anim-delay-1">
+        <span class="age-badge">2½ a 4 años</span>
+        <h3>Aula Luna</h3>
+        <p>Lenguaje en expansión, juego simbólico, curiosidad, autonomía emergente. Rincones de exploración, investigación, construcción y calma.</p>
+        <div class="aula-tags">
+          <span>Juego simbólico</span>
+          <span>Lenguaje</span>
+          <span>Autonomía</span>
+          <span>Investigación</span>
+        </div>
+      </div>
+      <div class="aula-card anim anim-delay-2">
+        <span class="age-badge">4 a 6 años</span>
+        <h3>Aula Sole</h3>
+        <p>Investigación, colaboración, pensamiento lógico, proyectos. Mayores niveles de autonomía y desafío. Se articula con el patio, extendiendo las experiencias al exterior.</p>
+        <div class="aula-tags">
+          <span>Proyectos</span>
+          <span>Colaboración</span>
+          <span>Hipótesis</span>
+          <span>Pensamiento lógico</span>
+        </div>
+      </div>
+    </div>
 
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyP-yzAudyNhg5sm4ZzsKlhHxG01SwKhvKE-4qMuE-lo_qgywwKG3HabqpOrIxMhRpzUQ/exec';
+    <p class="ateliers-intro anim">Nuestros ateliers — espacios especializados de exploración y creación — amplían las posibilidades de cada aula.</p>
 
-            try {
-                if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-                    await fetch(SCRIPT_URL, { method: 'POST', body: data });
-                }
-                form.style.display = 'none';
-                document.getElementById('formSuccess').classList.add('show');
-            } catch (err) {
-                const nombre = data.get('nombre');
-                const nino = data.get('nombre_nino');
-                const edad = data.get('edad');
-                const jornada = data.get('jornada') || 'Aún no definida';
-                const msg = encodeURIComponent(`Hola, soy ${nombre}. Me interesa agendar una visita al Playgroup para ${nino} (${edad}). Jornada: ${jornada}.`);
-                window.open(`https://wa.me/56953667384?text=${msg}`, '_blank');
-                btn.textContent = 'Enviado ✓';
-            }
-        }
-    </script>
+    <div class="ateliers-grid" style="margin-bottom:var(--space-lg);">
+      <div class="atelier-card anim">
+        <h3>&#x1F938; Atelier de Movimiento</h3>
+        <p>Yoga, baile, circuitos motores, mindfulness. Conciencia corporal y autorregulación.</p>
+      </div>
+      <div class="atelier-card anim anim-delay-1">
+        <h3>&#x1F4A1; Atelier de Luz</h3>
+        <p>Retroproyector, mesas de luz, linternas. Observación, asombro, investigación sensorial.</p>
+      </div>
+      <div class="atelier-card anim anim-delay-2">
+        <h3>&#x1F3D7;&#xFE0F; Atelier de Construcción</h3>
+        <p>Bloques, piezas sueltas, material reciclado. Creatividad, planificación, pensamiento espacial.</p>
+      </div>
+      <div class="atelier-card anim anim-delay-3">
+        <h3>&#x1F331; Huerto &amp; Gallinero</h3>
+        <p>Siembra, cosecha, cuidado de gallinas. Ciclos de la vida, paciencia, responsabilidad.</p>
+      </div>
+      <div class="atelier-card anim anim-delay-4">
+        <h3>&#x1F3A8; Atelier Abierto</h3>
+        <p>Espacio flexible para propuestas temporales: arcilla, flores, tierra, materiales naturales.</p>
+      </div>
+      <div class="atelier-card anim anim-delay-5">
+        <h3>&#x1F333; 5 Patios Exteriores</h3>
+        <p>2.500m² de espacio al aire libre. Parque de ruedas, pozo de arena, columpios, pasto, huerto.</p>
+      </div>
+    </div>
 
+    <p class="anim" style="text-align:center;max-width:700px;margin:0 auto;font-style:italic;">No son salas rígidas. Son ambientes vivos, en permanente observación y ajuste, que responden a los procesos reales de los niños y niñas.</p>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 7: Video
+     ============================================ -->
+<section class="section section-rosa">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow anim">Descubre Bianca Stella</span>
+    <h2 class="anim anim-delay-1">Conoce nuestro <em>espacio</em></h2>
+    <div class="anim anim-delay-2" style="margin-top:var(--space-lg);">
+      <div class="video-placeholder">
+        <img src="img/hero.jpg" alt="Video de Bianca Stella">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 8: Testimonios
+     ============================================ -->
+<section class="section section-dark">
+  <div class="container">
+    <span class="eyebrow anim">Familias reales</span>
+    <h2 class="anim anim-delay-1" style="margin-bottom:var(--space-lg);">Lo que dicen quienes ya <em>nos eligieron</em></h2>
+
+    <div class="testimonials-grid">
+      <div class="card-dark testimonial-card anim">
+        <p style="color:var(--turquesa);margin-bottom:var(--space-xs);font-size:0.9rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p>"Mi hijo se despierta con ganas de ir a su jardín, cosa que no pasó en el anterior. Avances agigantados en tan solo un mes. Se nota el amor, la alegría y el gusto por lo que realizan."</p>
+        <p class="author">Constanza S. — Reseña en Google</p>
+      </div>
+      <div class="card-dark testimonial-card anim anim-delay-1">
+        <p style="color:var(--turquesa);margin-bottom:var(--space-xs);font-size:0.9rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p>"Bianca Stella ha sido un verdadero refugio para nuestra familia. La transformación en nuestro hijo en 3 meses nos llena el alma. Su compromiso con la filosofía Reggio Emilia se nota en cada rincón."</p>
+        <p class="author">Ximena C. — Reseña en Google</p>
+      </div>
+      <div class="card-dark testimonial-card anim anim-delay-2">
+        <p style="color:var(--turquesa);margin-bottom:var(--space-xs);font-size:0.9rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p>"Mis hijos van felices, son amados y respetados. Aprenden con la interacción del entorno, sus compañeros y sus guías."</p>
+        <p class="author">Familia BS — Reseña en Google</p>
+      </div>
+      <div class="card-dark testimonial-card anim anim-delay-3">
+        <p style="color:var(--turquesa);margin-bottom:var(--space-xs);font-size:0.9rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p>"Jardín grande bien distribuido, con naturaleza, pasto, tierra, gallinero. Aquí aprenden jugando y compartiendo."</p>
+        <p class="author">Familia BS — Reseña en Google</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 9: Precios Playgroup
+     ============================================ -->
+<section class="section">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow anim">Playgroup 2026</span>
+    <h2 class="anim anim-delay-1" style="margin-bottom:var(--space-lg);">Elige la jornada ideal para <em>tu familia</em></h2>
+
+    <div class="pricing-grid" style="text-align:center;">
+      <div class="pricing-card anim">
+        <h3>Mañana</h3>
+        <div class="price-amount">$329.000</div>
+        <div class="price-period">mensual</div>
+        <ul class="pricing-features">
+          <li>8:30 a 12:30</li>
+          <li>Snack incluido</li>
+          <li>Todas las experiencias</li>
+          <li>Matrícula: $499.000</li>
+        </ul>
+        <a href="https://wa.me/56953667384" class="btn btn-outline">Consultar disponibilidad</a>
+      </div>
+      <div class="pricing-card featured anim anim-delay-1">
+        <span class="price-popular">Más popular</span>
+        <h3>Jornada completa</h3>
+        <div class="price-amount">$389.000</div>
+        <div class="price-period">mensual</div>
+        <ul class="pricing-features">
+          <li>8:30 a 16:30</li>
+          <li>Almuerzo + snacks incluidos</li>
+          <li>Todas las experiencias</li>
+          <li>Matrícula: $998.000</li>
+        </ul>
+        <a href="https://wa.me/56953667384" class="btn btn-primary">Consultar disponibilidad</a>
+      </div>
+      <div class="pricing-card anim anim-delay-2">
+        <h3>Tarde</h3>
+        <div class="price-amount">$199.000</div>
+        <div class="price-period">mensual</div>
+        <ul class="pricing-features">
+          <li>14:00 a 16:30</li>
+          <li>Snack incluido</li>
+          <li>Experiencias de tarde</li>
+          <li>Matrícula: $298.000</li>
+        </ul>
+        <a href="https://wa.me/56953667384" class="btn btn-outline">Consultar disponibilidad</a>
+      </div>
+    </div>
+
+    <div class="included-block anim" style="margin-top:var(--space-xl);text-align:left;">
+      <h3 style="text-align:center;">Todo lo que necesitan, incluido</h3>
+      <div class="included-grid">
+        <div class="included-item">Materiales pedagógicos incluidos — sin lista de útiles</div>
+        <div class="included-item">Sin uniforme institucional obligatorio</div>
+        <div class="included-item">Sin cobros adicionales por materiales durante el año</div>
+        <div class="included-item">Equipo de 8 profesionales en formación continua</div>
+        <div class="included-item">2.500m² de espacio al aire libre con huerto y animales</div>
+        <div class="included-item">Documentación pedagógica del proceso de tu hijo/a</div>
+      </div>
+      <p class="legal-note">Las familias solo aportan un libro para la biblioteca comunitaria y un rollo de papel mantequilla al año. Salidas pedagógicas y eventos especiales pueden tener un costo adicional.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 10: Más de Bianca Stella
+     ============================================ -->
+<section class="section section-light">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow anim">Descubre más</span>
+    <h2 class="anim anim-delay-1" style="margin-bottom:var(--space-lg);">Más formas de vivir <em>Bianca Stella</em></h2>
+
+    <div class="more-grid">
+      <div class="more-card anim">
+        <img src="img/gallinas.jpg" alt="Celebraciones en Bianca Stella">
+        <div class="more-card-content">
+          <span class="eyebrow" style="background:var(--rosa-light);padding:0.3rem 0.8rem;border-radius:var(--radius-full);color:var(--rosa);font-size:0.7rem;">Celebraciones</span>
+          <h3>Cumpleaños &amp; Eventos</h3>
+          <p>Celebra en nuestra parcela de 2.500m² con naturaleza, animales y todo lo necesario para un día inolvidable.</p>
+          <a href="/celebraciones/" class="btn btn-outline" style="margin-top:var(--space-sm);width:fit-content;">Ver opciones &rarr;</a>
+        </div>
+      </div>
+      <div class="more-card anim anim-delay-1">
+        <img src="img/mesa_luz.jpg" alt="Talleres en Bianca Stella">
+        <div class="more-card-content">
+          <span class="eyebrow" style="background:rgba(10,162,192,0.1);padding:0.3rem 0.8rem;border-radius:var(--radius-full);color:var(--turquesa);font-size:0.7rem;">Talleres</span>
+          <h3>Talleres extraprogramáticos</h3>
+          <p>English, Movimiento y Exploración BS. Para familias del proyecto y externas. Lunes, martes y miércoles.</p>
+          <a href="/talleres/" class="btn btn-outline" style="margin-top:var(--space-sm);width:fit-content;">Ver talleres &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 11: CTA Final
+     ============================================ -->
+<section class="section section-dark cta-final">
+  <div class="container">
+    <h2 class="anim">¿Listo para conocer <em>otro camino</em>?</h2>
+    <p class="anim anim-delay-1">Agenda una visita y descubre por qué más de 200 familias ya eligieron Bianca Stella</p>
+    <div class="cta-actions anim anim-delay-2">
+      <a href="https://wa.me/56953667384" class="btn btn-primary">Agenda tu visita</a>
+      <a href="https://wa.me/56953667384" class="btn btn-wa">&#9742; Escríbenos por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Section 12: Footer
+     ============================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo_bs.png" alt="Bianca Stella">
+        <p>Proyecto de primera infancia inspirado en la filosofía Reggio Emilia. Santiago, Chile.</p>
+        <p>&#9742; +56 9 5366 7384</p>
+      </div>
+      <div>
+        <h4>Páginas</h4>
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/celebraciones/">Celebraciones</a></li>
+          <li><a href="/talleres/">Talleres</a></li>
+          <li><a href="/nosotros/">Nosotros</a></li>
+          <li><a href="/contacto/">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Horarios</h4>
+        <p>Mañana: 8:30 - 12:30</p>
+        <p>Completa: 8:30 - 16:30</p>
+        <p>Tarde: 14:00 - 16:30</p>
+      </div>
+      <div>
+        <h4>Síguenos</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/biancastella.cl/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+        <p style="font-size:0.8rem;margin-top:var(--space-sm);">Dani también comparte en @tueducadoraamiga</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Bianca Stella SpA. Todos los derechos reservados.</span>
+      <span>Parcela 19 — Las Rosas, Santiago</span>
+    </div>
+  </div>
+</footer>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHJHM3W" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V60WSFE5XG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V60WSFE5XG');</script>
+<script src="js/main.js"></script>
 </body>
 </html>
