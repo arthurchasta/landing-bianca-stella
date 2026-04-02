@@ -1571,8 +1571,13 @@ em {
 
 /* --- Mobile small (<480px) --- */
 @media (max-width: 480px) {
+  .dark-results-wrapper {
+    padding: var(--space-md) var(--space-sm);
+  }
+
   .results-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
   }
 
   .result-item {
