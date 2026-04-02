@@ -1510,6 +1510,22 @@ em {
     display: none;
   }
 
+  .intro-split {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: var(--space-md) !important;
+  }
+
+  .intro-img {
+    order: -1;
+  }
+
+  .intro-img img {
+    max-height: 250px;
+    object-fit: cover;
+  }
+
   .included-grid {
     grid-template-columns: 1fr;
   }
