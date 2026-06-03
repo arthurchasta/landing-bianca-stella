@@ -1692,6 +1692,49 @@ em {
 }
 
 /* ============================================
+   Fundadora (Dani) — bloque de autoridad
+   ============================================ */
+.founder-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.founder-photo img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  object-fit: cover;
+}
+
+.founder-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--verde);
+  border-left: 3px solid var(--rosa);
+  padding-left: var(--space-md);
+  margin: var(--space-md) 0;
+}
+
+.founder-text .btn {
+  margin-top: var(--space-xs);
+}
+
+@media (max-width: 768px) {
+  .founder-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  .founder-photo {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================
    Admisión — selector de caminos + paneles
    ============================================ */
 .admision-hero p {
