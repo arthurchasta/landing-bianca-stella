@@ -1734,6 +1734,24 @@ em {
   }
 }
 
+/* Video — estado "pronto disponible" */
+.video-soon { cursor: default; }
+.video-soon::after { display: none; }
+.video-soon-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: rgba(14, 34, 37, 0.82);
+  color: var(--white);
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
 /* ============================================
    Admisión — selector de caminos + paneles
    ============================================ */
