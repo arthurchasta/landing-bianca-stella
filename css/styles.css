@@ -1752,6 +1752,40 @@ em {
   letter-spacing: 0.02em;
 }
 
+/* Celebraciones — cuadro de incluido destacado */
+.included-highlight {
+  max-width: 760px;
+  margin: var(--space-lg) auto 0;
+  background: var(--rosa-light);
+  border: 1px solid var(--rosa);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  text-align: center;
+}
+
+.included-highlight h3 {
+  color: var(--verde);
+  margin-bottom: var(--space-xs);
+}
+
+.included-highlight p {
+  color: #4a5a58;
+}
+
+/* Tag "nuevo" inline en tarjetas de jornada (2027) */
+.tag-nuevo {
+  display: inline-block;
+  background: rgba(10, 162, 192, 0.12);
+  color: #0a7d94;
+  border: 1px solid rgba(10, 162, 192, 0.3);
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-xs);
+}
+
 /* ============================================
    Admisión — selector de caminos + paneles
    ============================================ */
