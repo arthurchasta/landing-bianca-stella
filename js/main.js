@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initScrollAnimations();
   initCounters();
+  initWhatsappTracking();
 });
 
 /* ─── Navbar ─────────────────────────────────────────────────────────────── */
@@ -84,6 +85,36 @@ function initScrollAnimations() {
   );
 
   targets.forEach(el => observer.observe(el));
+}
+
+/* ─── WhatsApp click tracking ────────────────────────────────────────────── */
+// Mide el clic a WhatsApp (la conversión real del sitio). Antes el funnel
+// estaba ciego: GTM/GA4 cargaban pero los botones wa.me no disparaban evento.
+// Listener delegado: cubre todos los <a href="wa.me"> de todas las páginas.
+
+function initWhatsappTracking() {
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href*="wa.me"]');
+    if (!link) return;
+    trackWhatsapp(link.dataset.waSource || inferWaSource(link));
+  });
+}
+
+function inferWaSource(link) {
+  if (link.closest('.hero, .page-hero')) return 'hero';
+  if (link.closest('.navbar, .nav-mobile')) return 'nav';
+  if (link.closest('footer')) return 'footer';
+  return 'body';
+}
+
+// Global: lo llaman también los handlers de formulario (window.open) inline.
+function trackWhatsapp(source) {
+  const path = window.location.pathname;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'click_whatsapp', wa_source: source, page_path: path });
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'click_whatsapp', { source: source, page_path: path });
+  }
 }
 
 /* ─── Animated counters ──────────────────────────────────────────────────── */

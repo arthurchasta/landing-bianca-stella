@@ -6,7 +6,7 @@
   <title>Bianca Stella Playgroup — Inspirado en la filosofía Reggio Emilia</title>
   <meta name="description" content="Proyecto para la primera infancia inspirado en la filosofía Reggio Emilia. 8 años, 200+ familias, 2.500m² de naturaleza. Playgroup para niños de 1 a 6 años en Santiago.">
   <meta property="og:title" content="Bianca Stella Playgroup — Inspirado en la filosofía Reggio Emilia">
-  <meta property="og:description" content="No somos un jardín. Somos donde jugar es aprender. 8 años acompañando a más de 200 familias.">
+  <meta property="og:description" content="No somos un jardín. Somos el Playgroup donde jugar es aprender. Que jugar es aprender no es una frase bonita: está estudiado.">
   <meta property="og:image" content="img/hero.jpg">
   <meta property="og:url" content="https://biancastella.cl">
   <meta property="og:type" content="website">
@@ -72,8 +72,8 @@
 <section class="hero">
   <div class="hero-content">
     <div class="hero-badge anim" style="font-size:1rem;padding:0.6rem 1.4rem;">&#10003; Admisión 2026 y 2027 · niños y niñas de 1 a 6 años</div>
-    <h1 class="anim anim-delay-1"><strong>No somos un jardín.</strong><br>Somos donde <em>jugar es aprender</em></h1>
-    <p class="hero-sub anim anim-delay-2">8 años acompañando a más de 200 familias con una propuesta inspirada en la filosofía Reggio Emilia en 2.500m² de naturaleza, animales y arte.</p>
+    <h1 class="anim anim-delay-1"><strong>No somos un jardín.</strong><br>Somos el Playgroup donde <em>jugar es aprender</em></h1>
+    <p class="hero-sub anim anim-delay-2">Que jugar es aprender no es una frase bonita: está estudiado. Por eso formamos a todo nuestro equipo en la filosofía Reggio Emilia, una de las más reconocidas del mundo, para mirar a cada niño y niña por lo que es, a su ritmo.</p>
     <div class="hero-actions anim anim-delay-3">
       <a href="admision/" class="btn btn-primary">Admisiones Playgroup &rarr;</a>
       <a href="https://wa.me/56953667384?text=Hola%2C%20me%20interesa%20agendar%20una%20visita%20al%20Playgroup%20de%20Bianca%20Stella" class="btn btn-wa" target="_blank" rel="noopener">&#9742; WhatsApp</a>
@@ -604,6 +604,7 @@ async function handleSubmit(e) {
     const nombre = data.get('nombre');
     const interes = data.get('interes') || 'Playgroup';
     const msg = encodeURIComponent('Hola, soy ' + nombre + '. Me interesa información sobre ' + interes + ' en Bianca Stella.');
+    if (typeof trackWhatsapp === 'function') trackWhatsapp('form-fallback');
     window.open('https://wa.me/56953667384?text=' + msg, '_blank');
     btn.textContent = 'Enviado ✓';
   }

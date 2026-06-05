@@ -259,6 +259,7 @@ async function handleSubmit(e) {
     const nombre = data.get('nombre');
     const interes = data.get('interes') || 'Playgroup';
     const msg = encodeURIComponent('Hola, soy ' + nombre + '. Me interesa información sobre ' + interes + ' en Bianca Stella.');
+    if (typeof trackWhatsapp === 'function') trackWhatsapp('form-fallback');
     window.open('https://wa.me/56953667384?text=' + msg, '_blank');
     btn.textContent = 'Enviado ✓';
   }
