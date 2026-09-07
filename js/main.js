@@ -199,15 +199,13 @@ function animateCounter(el) {
    permanente. Así nunca queda una fecha pasada en el sitio.                */
 
 function initHeroEvento() {
-  const el = document.getElementById('heroEvento');
-  if (!el) return;
-  const hasta = el.dataset.eventoHasta;
-  const html = el.dataset.eventoHtml;
-  const href = el.dataset.eventoHref;
-  if (!hasta || !html || !href) return;
-  const fin = Date.parse(hasta);
-  if (isNaN(fin) || Date.now() > fin) return;
-  el.innerHTML = html;
-  el.href = href;
-  el.dataset.waSource = 'evento-25sep';
+  document.querySelectorAll('.js-evento').forEach((el) => {
+    const { eventoHasta, eventoHtml, eventoHref, eventoSource } = el.dataset;
+    if (!eventoHasta || !eventoHtml || !eventoHref) return;
+    const fin = Date.parse(eventoHasta);
+    if (isNaN(fin) || Date.now() > fin) return;
+    el.innerHTML = eventoHtml;
+    el.href = eventoHref;
+    if (eventoSource) el.dataset.waSource = eventoSource;
+  });
 }
