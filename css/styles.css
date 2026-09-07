@@ -2101,3 +2101,52 @@ em {
     order: 0;
   }
 }
+
+/* ---------- Píldora de evento (Puertas Abiertas) ---------- */
+.hero-evento {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  gap: 0.4rem;
+  background: var(--turquesa);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(10, 162, 192, 0.35);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.hero-evento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(10, 162, 192, 0.45);
+  color: #fff;
+}
+.hero-evento .he-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+.hero-evento .he-cta { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 640px) {
+  .hero-evento {
+    display: block;
+    align-self: stretch;
+    width: auto;
+    text-align: center;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    padding: 0.55rem 1rem;
+  }
+  .hero-evento .he-dot { display: none; }
+}

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initCounters();
   initWhatsappTracking();
+  initHeroEvento();
 });
 
 /* ─── Navbar ─────────────────────────────────────────────────────────────── */
@@ -190,4 +191,23 @@ function animateCounter(el) {
   }
 
   requestAnimationFrame(tick);
+}
+
+/* ─── Píldora de evento del hero ──────────────────────────────────────────
+   Por defecto muestra el mensaje permanente. Si hay un evento vigente
+   (data-evento-hasta), lo muestra hasta esa fecha y después vuelve solo al
+   permanente. Así nunca queda una fecha pasada en el sitio.                */
+
+function initHeroEvento() {
+  const el = document.getElementById('heroEvento');
+  if (!el) return;
+  const hasta = el.dataset.eventoHasta;
+  const html = el.dataset.eventoHtml;
+  const href = el.dataset.eventoHref;
+  if (!hasta || !html || !href) return;
+  const fin = Date.parse(hasta);
+  if (isNaN(fin) || Date.now() > fin) return;
+  el.innerHTML = html;
+  el.href = href;
+  el.dataset.waSource = 'evento-25sep';
 }
