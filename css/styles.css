@@ -190,12 +190,12 @@ em {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 0.95rem 2rem;
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.03em;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   transition: all var(--transition-base);
   cursor: pointer;
   border: 2px solid transparent;
@@ -207,7 +207,9 @@ em {
   background: var(--turquesa);
   color: var(--white);
   border-color: var(--turquesa);
+  box-shadow: 0 6px 20px rgba(10, 162, 192, 0.38);
 }
+.btn-primary:hover { box-shadow: 0 9px 26px rgba(10, 162, 192, 0.5); transform: translateY(-2px); }
 
 .btn-primary:hover {
   background: #0891ad;
@@ -230,10 +232,13 @@ em {
 }
 
 .btn-outline {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.10);
   color: var(--turquesa);
   border-color: var(--turquesa);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
+.btn-outline:hover { background: rgba(255, 255, 255, 0.20); transform: translateY(-2px); }
 
 .btn-outline:hover {
   background: var(--turquesa);
@@ -1391,9 +1396,10 @@ em {
   }
 
   .pillars-grid {
-    grid-template-columns: 1fr;
-    max-width: 600px;
-    margin: 0 auto;
+    /* Se mantienen al lado en escritorio; apilan recién en 820px (ver abajo) */
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+    margin: 0;
   }
 
   .aulas-grid {
@@ -2243,3 +2249,1889 @@ em {
   .hero-card, .hero-scrim { display: none; }
   .hero-evento { display: block; }
 }
+
+
+/* ============================================================
+   AQUÍ PROMOVEMOS — stickers
+   ============================================================ */
+.promesa-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto var(--space-lg);
+}
+
+.stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+.sticker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: calc(var(--space-md) + 0.25rem) var(--space-md);
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(14, 34, 37, 0.14);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  will-change: transform;
+}
+
+/* Cada sticker cae con su propia inclinación, como pegado a mano */
+.stickers-grid > .sticker:nth-child(1) { transform: rotate(-2.5deg); }
+.stickers-grid > .sticker:nth-child(2) { transform: rotate(1.8deg); }
+.stickers-grid > .sticker:nth-child(3) { transform: rotate(-1.4deg); }
+.stickers-grid > .sticker:nth-child(4) { transform: rotate(2.6deg); }
+.stickers-grid > .sticker:nth-child(5) { transform: rotate(-1.9deg); }
+.stickers-grid > .sticker:nth-child(6) { transform: rotate(1.3deg); }
+
+.stickers-grid > .sticker:hover {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 18px 44px rgba(14, 34, 37, 0.22);
+}
+
+.sticker-word {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+.sticker p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.sticker-verde    { background: var(--verde);    color: var(--white); }
+.sticker-verde p  { color: rgba(255, 255, 255, 0.82); }
+
+.sticker-rosa     { background: var(--rosa);     color: var(--verde); }
+.sticker-rosa p   { color: rgba(20, 42, 46, 0.78); }
+
+.sticker-turquesa   { background: var(--turquesa); color: var(--white); }
+.sticker-turquesa p { color: rgba(255, 255, 255, 0.88); }
+
+.sticker-blanco   { background: var(--white); color: var(--verde); border: 2px dashed var(--rosa); }
+.sticker-blanco p { color: var(--text-light); }
+
+.sticker-crema      { background: #e8f3ef; color: var(--verde); }
+.sticker-crema p    { color: rgba(20, 42, 46, 0.72); }
+
+.sticker-verde-claro   { background: #1d3a3f; color: var(--white); }
+.sticker-verde-claro p { color: rgba(255, 255, 255, 0.80); }
+
+.stickers-nota {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: var(--space-lg);
+}
+
+.stickers-nota a {
+  color: var(--turquesa);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(10, 162, 192, 0.35);
+}
+
+.stickers-nota a:hover { border-bottom-color: var(--turquesa); }
+
+@media (max-width: 900px) {
+  .stickers-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+}
+
+@media (max-width: 520px) {
+  .stickers-grid { grid-template-columns: 1fr; }
+  .stickers-grid > .sticker:nth-child(n) { transform: rotate(0deg); }
+  .sticker { padding: var(--space-md); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stickers-grid > .sticker:nth-child(n) { transform: none; }
+  .stickers-grid > .sticker:hover { transform: none; }
+}
+
+
+/* ============================================================
+   GALERÍA DE ESPACIOS REALES
+   ============================================================ */
+.espacios-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.espacio-card {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  box-shadow: var(--shadow-card);
+}
+
+.espacio-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.espacio-card:hover img { transform: scale(1.05); }
+
+.espacio-wide {
+  grid-column: span 3;
+  aspect-ratio: 16 / 9;
+}
+
+/* La Sala de Movimiento es apaisada: el corte sube para que se vean
+   los ventanales y los módulos, no el suelo vacío de adelante. */
+.espacio-wide img { object-position: center 32%; }
+
+.espacio-card figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  background: linear-gradient(to top, rgba(14, 34, 37, 0.92) 0%, rgba(14, 34, 37, 0.72) 45%, transparent 100%);
+  color: var(--white);
+}
+
+.espacio-nombre {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.espacio-desc {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.espacios-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid rgba(20, 42, 46, 0.12);
+  border-radius: var(--radius-md);
+  background: var(--gris-warm);
+}
+
+.espacios-cta p {
+  margin: 0;
+  max-width: 560px;
+  font-size: 0.95rem;
+}
+
+.pilares-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .espacios-gallery { grid-template-columns: repeat(2, 1fr); }
+  .espacio-wide { grid-column: span 2; aspect-ratio: 4 / 3; }
+  .espacios-cta { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 420px) {
+  .espacios-gallery { grid-template-columns: 1fr; }
+  .espacio-wide { grid-column: span 1; }
+}
+
+
+/* ============================================================
+   PUNTAJE DE GOOGLE (bloque de testimonios)
+   ============================================================ */
+.google-score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gs-num {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--white);
+}
+
+.gs-stars { color: var(--turquesa); letter-spacing: 0.08em; font-size: 0.95rem; }
+
+.gs-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
+
+@media (max-width: 480px) {
+  .google-score { flex-wrap: wrap; row-gap: 0.2rem; border-radius: var(--radius-md); }
+}
+
+
+/* ============================================================
+   EL INGLÉS DENTRO DE LA JORNADA
+   ============================================================ */
+.ingles-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.ingles-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--turquesa);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+}
+
+.ingles-card h3 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  margin-bottom: var(--space-xs);
+}
+
+.ingles-card p { font-size: 0.95rem; }
+
+.ingles-ejemplo {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed rgba(20, 42, 46, 0.15);
+  font-style: italic;
+  color: var(--text-light);
+}
+
+.ingles-2027 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px dashed var(--rosa);
+  border-radius: var(--radius-md);
+}
+
+.i27-tag {
+  align-self: flex-start;
+  background: var(--verde);
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-full);
+}
+
+.ingles-2027 p { margin: 0; font-size: 0.92rem; }
+
+@media (max-width: 860px) {
+  .ingles-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+}
+
+
+/* ============================================================
+   BANDA DEL EQUIPO (rol vs título)
+   ============================================================ */
+.equipo-banda {
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-xl);
+  border-left: 4px solid var(--rosa);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.equipo-banda h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.15;
+  margin-bottom: var(--space-sm);
+}
+
+.equipo-banda p {
+  max-width: 760px;
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+@media (max-width: 768px) {
+  .equipo-banda { padding: var(--space-md); }
+}
+
+
+/* ============================================================
+   HERO DE IMPACTO
+   Todo el argumento vive sobre el pliegue: promesa, las cuatro
+   palabras, la prueba y el llamado. Nadie tiene que estudiar
+   la página para entender qué se ofrece.
+   ============================================================ */
+.hero-impacto {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--space-xl) + 40px) 0 0;
+  background: var(--verde);
+  overflow: hidden;
+}
+
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+/* Doble velo: uno vertical que ancla el texto, uno lateral que
+   mantiene legible la columna izquierda sin apagar la foto. */
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 95% at 18% 72%, rgba(20, 42, 46, 0.60) 0%, rgba(20, 42, 46, 0.26) 42%, rgba(20, 42, 46, 0) 78%),
+    linear-gradient(to top, rgba(20, 42, 46, 0.34) 0%, rgba(20, 42, 46, 0.05) 40%, rgba(20, 42, 46, 0) 70%, rgba(20, 42, 46, 0.06) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+  gap: 0.9rem;
+}
+
+.hero-kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rosa);
+}
+
+.hero-impacto h1 {
+  color: var(--white);
+  font-size: clamp(2.5rem, 5.2vw, 4.2rem);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  max-width: 19ch;
+  margin: 0;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(10, 26, 29, 0.75), 0 1px 2px rgba(10, 26, 29, 0.7);
+}
+
+.hero-impacto h1 em { color: var(--rosa); }
+/* Aire entre el titular y los chips: pegados se leían como una sola mancha. */
+.hero-impacto h1 { margin-bottom: 0.35rem; }
+
+.hero-claim {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(1.05rem, 1.9vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.45;
+  max-width: 34ch;
+  margin: 0;
+}
+
+/* ---- Las cuatro palabras, sobre el pliegue ---- */
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  margin: var(--space-xs) 0 var(--space-sm);
+  padding: 0;
+}
+
+.hero-chips .chip {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 0.62rem 1.3rem;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+}
+
+/* Un color por frase: sobre la foto se leen como cinco cosas, no como una lista. */
+.hero-chips .chip { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22); }
+.hero-chips .chip-1 { background: var(--turquesa); color: var(--white); }
+.hero-chips .chip-2 { background: var(--rosa);     color: var(--verde); }
+.hero-chips .chip-3 { background: var(--white);    color: var(--verde); }
+.hero-chips .chip-4 { background: #8fb3a6;         color: var(--verde); }
+.hero-chips .chip-5 { background: #efd9a0;         color: var(--verde); }
+.hero-chips .chip-6 { background: #d9e4ec;         color: var(--verde); }
+.hero-chips .chip-7 { background: #d8d2e6;         color: var(--verde); }
+
+.btn-xl {
+  padding: 1.15rem 2.6rem;
+  font-size: 1.05rem;
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: var(--white);
+  backdrop-filter: blur(6px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: var(--white);
+}
+
+/* ---- Franja de prueba, pegada al borde inferior del pliegue ---- */
+.hero-proof {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.hp-item { display: flex; flex-direction: column; gap: 0.15rem; }
+
+.hp-item strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--white);
+}
+
+.hp-item span { font-size: 0.8rem; color: rgba(255, 255, 255, 0.62); line-height: 1.35; }
+
+.hp-item strong .hp-stars { font-size: 0.8em; color: var(--turquesa); letter-spacing: 0.06em; }
+
+/* ---- Píldora de evento: solo aparece si hay uno vigente ---- */
+.hero-impacto .hero-evento { display: none; }
+.hero-impacto .hero-evento.is-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-bottom: var(--space-xs);
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-full);
+  background: var(--turquesa);
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .hero-proof { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-md); }
+}
+
+/* Portátiles bajos: el pliegue completo tiene que caber igual. */
+@media (min-width: 1025px) and (max-height: 820px) {
+  .hero-impacto { padding-top: calc(var(--space-lg) + 40px); }
+  .hero-inner { gap: 0.7rem; }
+  .hero-impacto h1 { font-size: clamp(2.2rem, 4.2vw, 3.3rem); }
+  .hero-claim { font-size: 1.02rem; }
+  .hero-chips .chip { font-size: 1.1rem; padding: 0.5rem 1.1rem; }
+  .btn-xl { padding: 0.95rem 2.2rem; font-size: 0.98rem; }
+  .hp-item strong { font-size: 1.6rem; }
+}
+
+@media (max-width: 1024px) {
+  .hero-impacto {
+    min-height: 100svh;
+    padding-top: calc(var(--space-2xl) + 10px);
+  }
+  .hero-bg img { object-position: center 45%; }
+  .hero-veil {
+    background:
+      linear-gradient(to top, rgba(10, 26, 29, 0.97) 0%, rgba(10, 26, 29, 0.88) 42%, rgba(10, 26, 29, 0.45) 100%);
+  }
+  .hero-impacto h1 { max-width: 100%; }
+  .hero-claim { max-width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .hero-impacto { padding-top: calc(var(--space-xl) + 40px); }
+  .hero-inner { gap: 0.8rem; padding-bottom: var(--space-lg); }
+  .hero-impacto h1 { font-size: clamp(2.2rem, 10vw, 3.1rem); }
+  .hero-chips { gap: 0.45rem; }
+  .hero-chips .chip { font-size: 0.95rem; padding: 0.5rem 1rem; white-space: normal; }
+  .hero-actions { width: 100%; flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { width: 100%; }
+  .hero-proof { padding-bottom: var(--space-md); }
+}
+
+/* Teléfonos bajos (SE y similares): el llamado no puede quedar bajo el pliegue. */
+@media (max-width: 560px) and (max-height: 720px) {
+  .hero-impacto { padding-top: calc(var(--space-lg) + 40px); }
+  .hero-inner { gap: 0.55rem; padding-bottom: var(--space-md); }
+  .hero-kicker { font-size: 0.68rem; letter-spacing: 0.12em; }
+  .hero-impacto h1 { font-size: 1.95rem; }
+  .hero-claim { font-size: 0.92rem; line-height: 1.4; }
+  .hero-chips { gap: 0.35rem; }
+  .hero-chips .chip { font-size: 0.85rem; padding: 0.45rem 0.85rem; white-space: normal; }
+  .btn-xl { padding: 0.9rem 1.8rem; font-size: 0.95rem; }
+  .hero-actions .btn:not(.btn-xl) { padding: 0.7rem 1.6rem; font-size: 0.85rem; }
+}
+
+/* ---- Hero: el llamado para quien necesita cupo ya, bajo los botones ---- */
+.hero-ahora {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 0.2rem;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.hero-ahora strong { color: var(--white); font-weight: 700; }
+.hero-ahora .ha-f { color: var(--turquesa); font-weight: 700; }
+.hero-ahora:hover { color: var(--white); border-color: var(--white); }
+
+.hero-proof--3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) { .hero-proof--3 { grid-template-columns: repeat(3, 1fr); gap: 0.8rem; } }
+@media (max-width: 560px) {
+  .hero-proof--3 { grid-template-columns: 1fr 1fr; }
+  .hero-proof--3 .hp-item:last-child { grid-column: span 2; }
+  .hero-ahora { font-size: 0.86rem; }
+}
+
+/* ============================================================
+   CARRUSEL DE TESTIMONIOS
+   Una reseña a la vez. Las flechas mandan; los puntos indican
+   dónde vas. Sin JS igual se ve la primera.
+   ============================================================ */
+.t-carousel {
+  position: relative;
+  max-width: 880px;
+}
+
+.t-viewport { overflow: hidden; }
+
+.t-track {
+  display: flex;
+  transition: transform 420ms var(--ease-out);
+}
+
+.t-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--radius-md);
+}
+
+.t-slide .t-stars { color: var(--turquesa); font-size: 0.95rem; letter-spacing: 0.1em; margin-bottom: var(--space-xs); }
+
+.t-slide blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.1vw, 1.65rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--white);
+  margin: 0 0 var(--space-sm);
+  quotes: '\201C' '\201D';
+}
+.t-slide blockquote::before { content: open-quote; }
+.t-slide blockquote::after  { content: close-quote; }
+
+.t-author { font-size: 0.85rem; font-weight: 600; color: var(--turquesa); }
+
+.t-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--white);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.t-arrow svg { width: 22px; height: 22px; display: block; }
+.t-arrow:hover:not(:disabled) { background: var(--turquesa); border-color: var(--turquesa); }
+.t-arrow:disabled { opacity: 0.28; cursor: default; }
+
+.t-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.t-dots { display: flex; gap: 0.45rem; }
+.t-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.28);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.t-dot.is-on { background: var(--turquesa); transform: scale(1.35); }
+
+/* El 5,0 de Google, ahora como cierre y clickeable */
+a.google-score {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.6rem;
+  margin-top: var(--space-md);
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  transition: all var(--transition-fast);
+}
+a.google-score:hover { border-color: var(--turquesa); background: rgba(10, 162, 192, 0.1); }
+
+@media (max-width: 700px) {
+  .t-slide { padding: var(--space-md) 1.3rem; }
+  a.google-score { padding: 0.65rem 1rem; }
+  a.google-score .gs-label { font-size: 0.8rem; }
+  .t-nav { justify-content: space-between; }
+  .t-dots { order: -1; flex: 1; justify-content: center; }
+  .t-arrow { width: 44px; height: 44px; flex-basis: 44px; }
+  .t-nav .t-arrow:first-child { order: -2; }
+}
+
+/* Sección Admisión: el llamado para quien necesita cupo en lo que queda del año */
+.admision-ahora {
+  margin-top: var(--space-md);
+  font-size: 0.92rem;
+  color: var(--text-light);
+}
+.admision-ahora a {
+  color: var(--turquesa);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(10, 162, 192, 0.4);
+  transition: border-color var(--transition-fast);
+}
+.admision-ahora a:hover { border-color: var(--turquesa); }
+
+/* La frase del hero va en dos líneas; en pantallas angostas el salto sobra
+   porque cada oración ya ocupa varias líneas sola. */
+.hero-claim { max-width: 46ch; font-size: 1rem; opacity: 0.88; }
+@media (max-width: 620px) {
+  .hero-claim br { display: none; }
+}
+
+/* La bajada de "Qué vas a notar", centrada bajo el título */
+.promesa-head p {
+  max-width: 48ch;
+  margin: var(--space-xs) auto 0;
+  color: var(--text-light);
+}
+
+/* ---- Aulas sin foto todavía: tarjeta de color, para que el hueco se lea
+        como una decisión y no como una imagen rota. ---- */
+.espacio-aula {
+  display: flex;
+  align-items: flex-end;
+  background: var(--verde);
+}
+
+.espacio-aula figcaption {
+  position: static;
+  background: none;
+  padding: var(--space-md) var(--space-sm);
+}
+
+.espacio-edad {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 0.45rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--white);
+}
+
+.aula-stella { background: linear-gradient(160deg, #1d3a3f 0%, #142a2e 100%); }
+.aula-luna   { background: linear-gradient(160deg, #c99f96 0%, #dbb4ac 100%); }
+.aula-sole   { background: linear-gradient(160deg, #0b8fa8 0%, #0AA2C0 100%); }
+
+.aula-luna .espacio-nombre,
+.aula-luna .espacio-desc { color: var(--verde); }
+.aula-luna .espacio-desc { opacity: 0.8; }
+.aula-luna .espacio-edad { background: rgba(20, 42, 46, 0.16); color: var(--verde); }
+
+/* La wide de los patios es vertical de origen: el corte sube a los niños. */
+.espacios-gallery .espacio-wide img { object-position: center 62%; }
+
+/* ============================================================
+   BANDA REGGIO
+   Sello de credibilidad entre el hero y los espacios: de borde
+   a borde, sin container, para que corte la página en dos.
+   ============================================================ */
+.banda-reggio {
+  background: var(--verde);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+}
+
+/* Dos líneas siempre: a este tamaño el texto no cabe en una,
+   y el separador suelto quedaba colgando al final del renglón. */
+.banda-reggio p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.9vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--white);
+  text-wrap: balance;
+}
+
+.banda-reggio em {
+  font-style: italic;
+  color: var(--rosa);
+}
+
+/* El separador pasa a ser una línea entre los dos renglones. */
+.br-sep {
+  width: 72px;
+  height: 2px;
+  background: var(--turquesa);
+  border-radius: 2px;
+  font-size: 0;
+}
+
+@media (max-width: 700px) {
+  .banda-reggio { padding: var(--space-md) var(--space-sm); }
+  .banda-reggio p { gap: 0.6rem; }
+  .br-sep { width: 54px; }
+}
+
+/* ---- Banda para quien necesita cupo en lo que queda del año ---- */
+.banda-ahora {
+  background: var(--rosa-light);
+  padding: var(--space-md) var(--space-md);
+  border-top: 1px solid rgba(219, 180, 172, 0.5);
+  border-bottom: 1px solid rgba(219, 180, 172, 0.5);
+}
+
+.banda-ahora .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  text-align: center;
+}
+
+.ba-titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--verde);
+}
+
+.ba-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+@media (max-width: 700px) {
+  .ba-botones { flex-direction: column; width: 100%; max-width: 360px; }
+  .banda-ahora .btn { width: 100%; justify-content: center; }
+}
+
+/* El teléfono junto al botón: para quien ya decidió y quiere llamar ahora.
+   Con poco aire entre los dos, el lado derecho se lee como una sola mancha. */
+.nav-cta { display: flex; align-items: center; gap: 1.6rem; }
+
+.nav-tel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+.navbar.scrolled .nav-tel { color: var(--verde); }
+.nav-tel:hover { color: var(--turquesa); }
+
+@media (max-width: 1100px) { .nav-tel { display: none; } }
+
+/* En el menú de celular va completo, como primer elemento. */
+.nav-mobile .nav-tel-movil {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--turquesa);
+}
+
+/* ---- La prueba vuelve más abajo, cuando ya está comparando ---- */
+.franja-cifras {
+  background: var(--verde);
+  padding: var(--space-lg) 0;
+}
+
+.franja-cifras .container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.fc-item strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--rosa);
+  letter-spacing: -0.02em;
+}
+
+.fc-item span {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 760px) {
+  .franja-cifras .container { grid-template-columns: repeat(2, 1fr); gap: var(--space-md) var(--space-sm); }
+}
+
+/* El 5,0 bajo el formulario, donde se duda justo antes de escribir */
+a.google-score.form-score {
+  display: flex;
+  margin: var(--space-md) auto 0;
+  width: fit-content;
+}
+
+/* Las aulas de la galería son enlaces al detalle de su nivel */
+a.espacio-aula { text-decoration: none; cursor: pointer; }
+a.espacio-aula:hover { transform: translateY(-3px); }
+a.espacio-aula { transition: transform var(--transition-base); }
+
+.espacio-ver {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--white); }
+.aula-luna .espacio-ver { color: rgba(20, 42, 46, 0.72); border-color: rgba(20, 42, 46, 0.35); }
+.aula-luna:hover .espacio-ver { color: var(--verde); border-color: var(--verde); }
+
+/* Al saltar a un nivel, que no quede tapado por la barra de arriba */
+.aula-card[id] { scroll-margin-top: 110px; }
+
+/* ============================================================
+   CINTA DEL HERO
+   Las frases se desplazan en una sola fila. No crece hacia
+   abajo por muchas que sean, y en el celular ocupa lo mismo.
+   ============================================================ */
+.hero-cinta {
+  position: relative;
+  display: flex;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  padding: 0.3rem 0;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.cinta-pista {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0 0.3rem 0 0;
+  list-style: none;
+  animation: cinta 38s linear infinite;
+}
+
+@keyframes cinta {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+.hero-cinta:hover .cinta-pista { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-pista { animation: none; }
+  .hero-cinta { mask-image: none; -webkit-mask-image: none; }
+}
+
+/* El hero-inner tiene padding lateral; la cinta se sale de él a propósito,
+   así que recupera el margen del contenido en el borde izquierdo. */
+.hero-inner > .hero-cinta { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+
+/* La cinta reusa los colores de .hero-chips, pero no debe envolver ni
+   llevar el margen inferior que tenían los chips apilados. */
+.hero-chips.cinta-pista {
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0 0.3rem 0 0;
+}
+
+/* La banda ahora son tres líneas: las dos primeras sobre el proyecto,
+   la tercera sobre el niño, separada por el divisor. */
+.banda-reggio .br-linea { margin-top: -0.3rem; }
+.banda-reggio .br-destacada { font-size: 1.12em; }
+.banda-reggio .br-destacada em { color: var(--turquesa); }
+
+/* ============================================================
+   LOS CINCO PATIOS — acordeón
+   Se ven los cinco a la vez; el que recibe el mouse se abre y
+   los demás se achican. En táctil no hay hover: se desliza.
+   ============================================================ */
+.patios-wrap { grid-column: 1 / -1; }
+
+.patios-titulo {
+  margin: 0 0 var(--space-sm);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--verde);
+}
+.patios-titulo span { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
+
+.patios-acordeon {
+  display: flex;
+  gap: 0.6rem;
+  height: 400px;
+}
+
+.patio {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: flex-grow 550ms var(--ease-out);
+}
+
+.patio img { width: 100%; height: 100%; object-fit: cover; }
+
+.patio figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  background: linear-gradient(to top, rgba(14, 34, 37, 0.92), transparent);
+}
+
+.patio figcaption span {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+/* El que recibe el mouse se abre; los otros ceden espacio. */
+@media (hover: hover) {
+  .patios-acordeon:hover .patio { flex-grow: 0.65; }
+  .patios-acordeon .patio:hover { flex-grow: 3.2; }
+}
+
+/* En táctil no hay hover: se deslizan de lado, con enganche. */
+@media (hover: none), (max-width: 760px) {
+  .patios-acordeon {
+    height: 300px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .patios-acordeon::-webkit-scrollbar { display: none; }
+  .patio { flex: 0 0 72%; scroll-snap-align: center; }
+  .patios-titulo span { display: none; }
+}
+
+/* ============================================================
+   QUIÉN TE RECIBE — Ximena, Vale y Mary
+   El hueco de la foto queda marcado a propósito hasta que
+   lleguen las imágenes; no es un error de carga.
+   ============================================================ */
+
+.persona { margin: 0; }
+
+.persona-foto {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  background: linear-gradient(160deg, #e3ece9 0%, #d6e3de 100%);
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.persona-foto::after {
+  content: 'Foto pendiente';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(20, 42, 46, 0.3);
+}
+
+.persona-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  position: relative;
+  z-index: 1;
+}
+
+.persona figcaption { padding-top: var(--space-sm); }
+
+.persona-nombre {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--verde);
+  line-height: 1.1;
+}
+
+.persona-rol {
+  display: block;
+  margin: 0.15rem 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--turquesa);
+}
+
+.persona p { font-size: 0.92rem; line-height: 1.6; color: var(--text-light); margin: 0; }
+
+/* ============================================================
+   EL CICLO — provocar, acompañar, documentar, planificar
+   Se dibuja como anillo porque el método no termina: vuelve.
+   En pantallas angostas se despliega en columna.
+   ============================================================ */
+.ciclo {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* El hueco entre columnas tiene que dar cabida al anillo, o la línea
+     punteada cruza por encima de los textos. */
+  gap: var(--space-lg) 300px;
+  max-width: 1060px;
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-md) 0;
+}
+
+/* El anillo lo dibuja un SVG, para que tenga punta de flecha y se vea el giro */
+.ciclo-anillo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 232px;
+  height: 232px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.ciclo-centro {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 136px;
+  height: 136px;
+  border-radius: 50%;
+  background: var(--rosa);
+  color: var(--verde);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.cc-simbolo { font-size: 1.9rem; line-height: 1; }
+.cc-texto { font-size: 0.74rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.02em; }
+
+.ciclo-paso { position: relative; }
+
+/* El recorrido es horario: 1 arriba-izq, 2 arriba-der, 3 abajo-der, 4 abajo-izq */
+.cp-1 { grid-column: 1; grid-row: 1; text-align: right; }
+.cp-2 { grid-column: 2; grid-row: 1; }
+.cp-4 { grid-column: 1; grid-row: 2; text-align: right; }
+.cp-3 { grid-column: 2; grid-row: 2; }
+
+.cp-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+  background: var(--turquesa);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ciclo-paso h4 {
+  color: var(--white);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  margin-bottom: 0.3rem;
+}
+
+.ciclo-paso p { color: rgba(255, 255, 255, 0.78); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+
+@media (max-width: 860px) {
+  .ciclo { grid-template-columns: 1fr; gap: var(--space-lg); max-width: 420px; }
+  .ciclo-anillo { display: none; }
+  .cp-1, .cp-2, .cp-3, .cp-4 { grid-column: 1; text-align: left; }
+  .cp-1 { grid-row: 1; } .cp-2 { grid-row: 2; } .cp-3 { grid-row: 3; } .cp-4 { grid-row: 4; }
+  .ciclo-centro {
+    position: static;
+    transform: none;
+    grid-row: 5;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-full);
+    flex-direction: row;
+    gap: 0.6rem;
+    padding: 0.9rem;
+  }
+  .cc-texto br { display: none; }
+}
+
+/* ---- Quién te recibe: mismo acordeón que los patios ---- */
+.equipo-pista {
+  margin: var(--space-sm) 0 var(--space-md);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.equipo-acordeon {
+  display: flex;
+  gap: 0.8rem;
+  height: 440px;
+}
+
+.equipo-acordeon .persona {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: flex-grow 550ms var(--ease-out);
+}
+
+.equipo-acordeon .persona-foto {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.equipo-acordeon figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: var(--space-lg) var(--space-sm) var(--space-sm);
+  background: linear-gradient(to top, rgba(14, 34, 37, 0.94) 35%, transparent);
+}
+
+.equipo-acordeon .persona-nombre { color: var(--white); white-space: nowrap; }
+.equipo-acordeon .persona-rol { color: var(--rosa); white-space: nowrap; }
+
+/* El párrafo solo aparece en la que se abre */
+.equipo-acordeon .persona p {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 44ch;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 350ms var(--ease-out), max-height 450ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  .equipo-acordeon:hover .persona { flex-grow: 0.6; }
+  .equipo-acordeon .persona:hover { flex-grow: 3; }
+  .equipo-acordeon .persona:hover p { opacity: 1; max-height: 9rem; margin-top: 0.5rem; }
+}
+
+@media (hover: none), (max-width: 760px) {
+  .equipo-acordeon { height: auto; flex-direction: column; gap: var(--space-md); }
+  .equipo-acordeon .persona { height: 380px; }
+  .equipo-acordeon .persona p { opacity: 1; max-height: none; margin-top: 0.5rem; }
+  .equipo-pista { display: none; }
+}
+
+/* ---- Video: va arriba, donde pesa. Formato ancho, para que no empuje
+        el resto de la página hacia abajo. ---- */
+.video-seccion { padding-top: var(--space-xl); padding-bottom: var(--space-lg); }
+.video-cabecera { text-align: center; margin-bottom: var(--space-md); }
+
+.video-marco {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--verde);
+}
+
+.video-marco img,
+.video-marco video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+
+
+.video-play {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 86px; height: 86px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--verde);
+  font-size: 1.9rem;
+  padding-left: 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.video-aviso {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-md);
+  transform: translateX(-50%);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  background: rgba(14, 34, 37, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 600px) {
+  .video-play { width: 62px; height: 62px; font-size: 1.4rem; }
+}
+
+
+/* Los 3 pilares apilan recién en tablet angosta, no en escritorio chico. */
+@media (max-width: 820px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+/* ---- El inglés y las experiencias del día ---- */
+.ing-intro { max-width: 760px; margin-bottom: var(--space-lg); }
+.ing-intro p + p { margin-top: var(--space-sm); }
+
+.ing-bloque {
+  max-width: 820px;
+  padding: var(--space-md) 0;
+  border-top: 1px solid rgba(20, 42, 46, 0.12);
+}
+
+.ing-bloque h3 {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  margin-bottom: var(--space-xs);
+}
+
+.ing-lista { margin: var(--space-sm) 0 0; padding-left: 1.1rem; }
+.ing-lista li { margin-bottom: 0.6rem; line-height: 1.65; }
+.ing-lista strong { color: var(--verde); }
+
+.ing-niveles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.ing-nivel {
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+}
+
+.ing-edad {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--turquesa);
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.ing-nivel h4 { font-family: var(--font-display); font-size: 1.35rem; margin-bottom: 0.3rem; }
+.ing-nivel p { font-size: 0.86rem; line-height: 1.55; }
+
+/* El bloque de niveles es ancho: se sale del límite de .ing-bloque */
+.ing-bloque:last-child { max-width: none; }
+
+@media (max-width: 860px) {
+  .ing-niveles { grid-template-columns: 1fr; }
+}
+
+
+/* La banda de cupos: el número manda, la promesa 2027 lo acompaña */
+.ba-titulo strong { color: var(--turquesa); font-weight: 700; }
+.ba-sub {
+  margin: -0.2rem 0 0;
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* ---- Los diplomas de Dani, como fotos. Mientras no lleguen, el hueco
+        va marcado a propósito y el pie ya dice qué es cada uno. ---- */
+.diplomas-head { margin: var(--space-xl) 0 var(--space-md); }
+.diplomas-head h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); margin-bottom: 0.3rem; }
+.diplomas-head p { font-size: 0.9rem; color: var(--text-light); }
+
+
+.diploma { margin: 0; }
+
+.diploma-foto {
+  position: relative;
+  aspect-ratio: 1 / 1.3;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  border: 1px solid rgba(20, 42, 46, 0.12);
+  box-shadow: var(--shadow-sm);
+}
+
+.diploma-foto::after {
+  content: 'Foto pendiente';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(20, 42, 46, 0.26);
+}
+
+.diploma-foto img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  position: relative; z-index: 1;
+}
+
+.diploma figcaption { padding-top: 0.6rem; }
+.dip-nombre { display: block; font-weight: 700; font-size: 0.88rem; color: var(--verde); line-height: 1.3; }
+.dip-donde  { display: block; font-size: 0.78rem; color: var(--text-light); margin-top: 0.15rem; line-height: 1.35; }
+.dip-horas  { display: block; font-size: 0.72rem; color: var(--turquesa); font-weight: 700; margin-top: 0.2rem; }
+
+
+/* ---- "¿Quieres ver cómo planificamos el mes?" — contenido denso que no
+        estorba a quien solo mira, y está entero para quien lo busca. ---- */
+.plan-desplegable {
+  margin-top: var(--space-lg);
+  border: 1px solid rgba(20, 42, 46, 0.14);
+  border-radius: var(--radius-md);
+  background: var(--rosa-light);
+  overflow: hidden;
+}
+
+.plan-desplegable summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  cursor: pointer;
+  list-style: none;
+  transition: background var(--transition-fast);
+}
+.plan-desplegable summary::-webkit-details-marker { display: none; }
+.plan-desplegable summary:hover { background: rgba(219, 180, 172, 0.22); }
+
+.pd-texto {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--verde);
+}
+
+.pd-icono {
+  flex-shrink: 0;
+  position: relative;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--turquesa);
+}
+.pd-icono::before, .pd-icono::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  background: var(--white);
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+.pd-icono::before { width: 14px; height: 2.4px; }
+.pd-icono::after  { width: 2.4px; height: 14px; }
+.plan-desplegable[open] .pd-icono::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+
+.pd-contenido {
+  padding: 0 var(--space-md) var(--space-md);
+  border-top: 1px solid rgba(20, 42, 46, 0.1);
+  padding-top: var(--space-md);
+}
+
+.pd-titulo {
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  margin-bottom: var(--space-sm);
+}
+
+/* el contenido del inglés reusa sus estilos, solo ajusta márgenes acá dentro */
+.pd-contenido .ing-intro { margin-bottom: var(--space-md); }
+.pd-contenido .ing-bloque:first-of-type { border-top: 0; }
+
+/* ---- Los diplomas, en cinta: avanzan solos y se frenan para leerlos ---- */
+.diplomas-cinta {
+  display: flex;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  padding: 0.4rem 0;
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.dip-pista {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-sm);
+  padding-right: var(--space-sm);
+  animation: cinta 60s linear infinite;
+}
+
+.diplomas-cinta:hover .dip-pista { animation-play-state: paused; }
+
+.dip-pista .diploma { flex: 0 0 210px; margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dip-pista { animation: none; }
+  .diplomas-cinta { mask-image: none; -webkit-mask-image: none; }
+}
+
+/* ---- La familia, adentro: lo que hace que una familia se quede ---- */
+.comunidad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.com-item {
+  position: relative;
+  padding: var(--space-md);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid var(--rosa);
+}
+
+.com-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--rosa);
+  margin-bottom: 0.4rem;
+}
+
+.com-item h3 { font-size: 1.15rem; margin-bottom: 0.35rem; line-height: 1.3; }
+.com-item p { font-size: 0.9rem; line-height: 1.6; color: var(--text-light); margin: 0; }
+
+@media (max-width: 900px) { .comunidad-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .comunidad-grid { grid-template-columns: 1fr; } }
+
+/* Dentro del desplegable, el ciclo va sobre fondo claro */
+.pd-contenido .ciclo-paso h4 { color: var(--verde); }
+.pd-contenido .ciclo-paso p { color: var(--text-light); }
+.pd-contenido .impact-phrase { margin: var(--space-md) auto var(--space-lg); }
+.pd-titulo--2 { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid rgba(20,42,46,0.12); }
+
+/* ---- Los detalles de todos los días ---- */
+.casa-lista {
+  column-count: 2;
+  column-gap: var(--space-xl);
+  margin: var(--space-lg) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.casa-lista li {
+  break-inside: avoid;
+  position: relative;
+  padding: 0 0 0 1.9rem;
+  margin-bottom: var(--space-sm);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--text-dark);
+}
+
+.casa-lista li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.48em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--turquesa);
+}
+
+.casa-cierre {
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  border-left: 3px solid var(--rosa);
+  background: var(--rosa-light);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  color: var(--verde);
+}
+.casa-cierre strong { font-weight: 700; }
+
+@media (max-width: 760px) {
+  .casa-lista { column-count: 1; }
+}
+
+/* El botón de Tu Educadora Amiga, bajo la foto de Dani */
+.founder-btn {
+  display: inline-flex;
+  margin-top: var(--space-sm);
+  width: 100%;
+  justify-content: center;
+}
+
+/* Los cupos de la banda llevan a la tarjeta de su sala */
+.ba-cupo {
+  color: var(--turquesa);
+  font-weight: 700;
+  border-bottom: 2px solid rgba(10, 162, 192, 0.35);
+  transition: border-color var(--transition-fast);
+}
+.ba-cupo:hover { border-bottom-color: var(--turquesa); }
+
+/* Al llegar, la sala se marca un momento para que se note cuál es */
+.espacio-aula[id] { scroll-margin-top: 110px; }
+.espacio-aula:target { animation: destacar-sala 2.4s var(--ease-out); }
+
+@keyframes destacar-sala {
+  0%, 60%  { box-shadow: 0 0 0 4px var(--turquesa), var(--shadow-card); }
+  100%     { box-shadow: 0 0 0 0 rgba(10,162,192,0), var(--shadow-card); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .espacio-aula:target { animation: none; box-shadow: 0 0 0 4px var(--turquesa); }
+}
+
+/* La frase que abre los espacios: hace de bisagra entre el texto y las fotos */
+.frase-juego {
+  max-width: 900px;
+  margin: var(--space-xl) auto var(--space-lg);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--verde);
+  text-wrap: balance;
+}
+
+/* De dónde salen los detalles: el bloque de materiales, antes del cierre */
+.casa-materiales {
+  max-width: 820px;
+  margin-top: var(--space-lg);
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--turquesa);
+}
+.casa-materiales h3 {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  margin-bottom: 0.4rem;
+}
+.casa-materiales p {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--text-light);
+  margin: 0;
+}
+
+/* El botón de Dani, en dos líneas */
+.founder-btn { padding-top: 0.85rem; padding-bottom: 0.85rem; line-height: 1.3; text-align: center; gap: 0.6rem; }
+.founder-btn em { font-style: normal; font-weight: 500; opacity: 0.85; font-size: 0.92em; }
+.founder-btn .fb-flecha { font-size: 1.1em; }
+
+/* ---- Páginas de aula ---- */
+.aula-hero { text-align: left; }
+.aula-hero--stella { background: linear-gradient(160deg, #1d3a3f 0%, #142a2e 100%); }
+.aula-hero--luna   { background: linear-gradient(160deg, #c99f96 0%, #dbb4ac 100%); }
+.aula-hero--sole   { background: linear-gradient(160deg, #0b8fa8 0%, #0AA2C0 100%); }
+
+.aula-hero--luna h1, .aula-hero--luna p, .aula-hero--luna .aula-edad { color: var(--verde); }
+.aula-hero--luna .aula-edad { background: rgba(20, 42, 46, 0.16); }
+
+.aula-edad {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.aula-foto {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(160deg, #e3ece9 0%, #d6e3de 100%);
+  box-shadow: var(--shadow-card);
+}
+.aula-foto::after {
+  content: attr(data-pendiente);
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(20, 42, 46, 0.28);
+}
+.aula-foto img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); position: relative; z-index: 1; }
+
+.equipo-aula { display: grid; gap: var(--space-md); margin-top: var(--space-lg); }
+.equipo-aula--1 { grid-template-columns: 1fr; max-width: 320px; }
+.equipo-aula--2 { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
+.equipo-aula--3 { grid-template-columns: repeat(3, 1fr); max-width: 920px; }
+
+.ing-ejemplo {
+  max-width: 820px;
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: var(--radius-md);
+}
+.ing-ejemplo h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
+.ing-ejemplo p { margin: 0; }
+
+@media (max-width: 620px) { .equipo-aula { grid-template-columns: 1fr; } }
+
+/* La foto del grupo lleva su pie */
+.aula-foto-wrap { margin: 0; }
+.aula-foto-wrap figcaption {
+  margin-top: var(--space-xs);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* El acordeón ahora lleva nombre y descripción en cada espacio */
+.pt-nombre {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  white-space: nowrap;
+}
+.pt-desc {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 320ms var(--ease-out), max-height 400ms var(--ease-out);
+}
+@media (hover: hover) {
+  .patio:hover .pt-desc { opacity: 1; max-height: 6rem; }
+}
+@media (hover: none), (max-width: 760px) {
+  .pt-desc { opacity: 1; max-height: none; }
+  .pt-nombre { white-space: normal; }
+}
+
+/* Botón bajo el video: la persona acaba de ver el lugar, es el mejor momento */
+.video-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+.video-cta p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--verde);
+}
+@media (max-width: 560px) {
+  .video-cta { flex-direction: column; gap: var(--space-sm); }
+  .video-cta .btn { width: 100%; justify-content: center; }
+}
+
+/* El video real: ya no hace falta oscurecer ni el botón falso */
+.video-marco video { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--verde); }
+
+/* En la cinta, el diploma se ve entero (no recortado) */
+.dip-pista .diploma-foto { display: flex; align-items: center; justify-content: center; padding: 6px; }
+.dip-pista .diploma-foto img { object-fit: contain; border-radius: 2px; }
+.dip-pista .diploma-foto:not([data-pendiente])::after { content: none; }
+
+
+/* Educadoras por aula */
+.educadora { margin: 0; }
+.educadora figcaption {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--verde);
+}
+.edu-cargo {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(20, 42, 46, 0.5);
+  margin-top: 0.2rem;
+}
+
+/* Registro de fin de año */
+.registro {
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--white);
+  border-left: 4px solid var(--rosa);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  max-width: 760px;
+}
+.registro h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--verde);
+  margin: 0 0 0.6rem;
+}
+.registro p { margin: 0; }
+@media (max-width: 640px) { .registro { padding: var(--space-md); } }
+
+/* Compromiso de las familias */
+.compromiso {
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--verde);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  max-width: 820px;
+}
+.compromiso h3 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  margin: 0 0 0.6rem;
+  color: var(--rosa);
+}
+.compromiso p { margin: 0; color: rgba(255,255,255,0.88); }
+@media (max-width: 640px) { .compromiso { padding: var(--space-md); } }
+
+/* Foto del espacio en las páginas de aula */
+.aula-espacio { margin: var(--space-lg) 0 0; }
+.aula-espacio img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  display: block;
+}
+.aula-espacio figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: rgba(20, 42, 46, 0.55);
+}
+
+/* Con el velo casi transparente, cada texto del hero se sostiene solo. */
+.hero-kicker, .hero-claim, .hero-proof { text-shadow: 0 1px 8px rgba(10, 26, 29, 0.8); }

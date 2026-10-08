@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounters();
   initWhatsappTracking();
   initHeroEvento();
+  initTestimonios();
 });
 
 /* ─── Navbar ─────────────────────────────────────────────────────────────── */
@@ -206,6 +207,66 @@ function initHeroEvento() {
     if (isNaN(fin) || Date.now() > fin) return;
     el.innerHTML = eventoHtml;
     el.href = eventoHref;
+    el.classList.add('is-live');
     if (eventoSource) el.dataset.waSource = eventoSource;
   });
 }
+
+/* ─── Carrusel de testimonios ─────────────────────────────────────────────
+   Una reseña a la vez: flechas, puntos, teclado y gesto táctil. Si el JS
+   no corre, el track se queda en la primera y se lee igual.              */
+
+function initTestimonios() {
+  document.querySelectorAll('[data-carousel]').forEach((car) => {
+    const track = car.querySelector('[data-track]');
+    const slides = track ? Array.from(track.children).filter(el => el.classList.contains('t-slide')) : [];
+    if (slides.length < 2) {
+      car.querySelectorAll('.t-arrow').forEach(b => b.style.display = 'none');
+      return;
+    }
+
+    const prev = car.querySelector('[data-prev]');
+    const next = car.querySelector('[data-next]');
+    const dotsBox = car.querySelector('[data-dots]');
+    let i = 0;
+
+    const dots = slides.map((_, n) => {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.className = 't-dot';
+      d.setAttribute('aria-label', 'Reseña ' + (n + 1));
+      d.addEventListener('click', () => go(n));
+      dotsBox && dotsBox.appendChild(d);
+      return d;
+    });
+
+    function go(n) {
+      i = Math.max(0, Math.min(n, slides.length - 1));
+      track.style.transform = 'translateX(' + (-i * 100) + '%)';
+      dots.forEach((d, k) => d.classList.toggle('is-on', k === i));
+      if (prev) prev.disabled = i === 0;
+      if (next) next.disabled = i === slides.length - 1;
+    }
+
+    prev && prev.addEventListener('click', () => go(i - 1));
+    next && next.addEventListener('click', () => go(i + 1));
+
+    car.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { go(i - 1); }
+      if (e.key === 'ArrowRight') { go(i + 1); }
+    });
+
+    // Gesto táctil
+    let x0 = null;
+    car.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    car.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) go(dx < 0 ? i + 1 : i - 1);
+      x0 = null;
+    }, { passive: true });
+
+    go(0);
+  });
+}
+
