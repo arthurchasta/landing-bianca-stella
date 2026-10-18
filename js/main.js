@@ -270,3 +270,54 @@ function initTestimonios() {
   });
 }
 
+
+// Documentación de aula: librito que se hojea (doble página en escritorio, una en celular)
+document.querySelectorAll('.doc-bloque').forEach((bloque) => {
+  const pista = bloque.querySelector('.doc-pista');
+  const pags = Array.from(pista.querySelectorAll('.doc-pag'));
+  const prev = bloque.querySelector('.doc-prev');
+  const next = bloque.querySelector('.doc-next');
+  const contador = bloque.querySelector('.doc-contador');
+  const chips = Array.from(bloque.querySelectorAll('.doc-indice a'));
+  const celular = window.matchMedia('(max-width: 860px)');
+
+  const porVista = () => (celular.matches ? 1 : 2);
+  const vistas = () => Math.ceil(pags.length / porVista());
+  // Paso real entre vistas (en celular las páginas llevan un espacio entre medio)
+  const paso = () => (pags[porVista()] ? pags[porVista()].offsetLeft - pags[0].offsetLeft : pista.clientWidth);
+  const actual = () => Math.round(pista.scrollLeft / paso());
+
+  const ir = (i) => {
+    i = Math.max(0, Math.min(vistas() - 1, i));
+    pista.scrollTo({ left: i * paso(), behavior: 'smooth' });
+  };
+
+  const pintar = () => {
+    const i = actual();
+    const n = vistas();
+    contador.textContent = (i + 1) + ' / ' + n;
+    prev.disabled = i <= 0;
+    next.disabled = i >= n - 1;
+    // Se marcan los proyectos de las páginas que están a la vista
+    const primera = i * porVista();
+    const enVista = pags.slice(primera, primera + porVista()).map((pg) => pg.dataset.proyecto);
+    chips.forEach((c) => c.classList.toggle('activo', enVista.includes(c.dataset.proyecto)));
+  };
+
+  prev.addEventListener('click', () => ir(actual() - 1));
+  next.addEventListener('click', () => ir(actual() + 1));
+  chips.forEach((c) => c.addEventListener('click', (e) => {
+    const destino = document.querySelector(c.getAttribute('href'));
+    if (!destino) return;
+    e.preventDefault();
+    ir(Math.floor(pags.indexOf(destino) / porVista()));
+  }));
+  pista.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); ir(actual() - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); ir(actual() + 1); }
+  });
+  let t = null;
+  pista.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(pintar, 80); }, { passive: true });
+  window.addEventListener('resize', () => { pista.scrollLeft = actual() * paso(); pintar(); });
+  pintar();
+});

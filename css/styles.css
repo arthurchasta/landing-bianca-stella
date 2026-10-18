@@ -306,6 +306,22 @@ em {
   transition: background var(--transition-base), padding var(--transition-base), box-shadow var(--transition-base);
 }
 
+/* Sobre la foto el menú no tiene fondo propio: una sombra muy suave
+   desde el borde superior le devuelve contraste sin parecer una barra. */
+.navbar.transparent::before {
+  content: '';
+  position: absolute;
+  inset: -20px 0 auto 0;
+  height: 150px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10, 26, 29, 0.55) 0%, rgba(10, 26, 29, 0.28) 45%, rgba(10, 26, 29, 0) 100%);
+}
+.navbar.transparent .nav-links a,
+.navbar.transparent .nav-tel,
+.navbar.transparent .nav-toggle {
+  text-shadow: 0 1px 6px rgba(10, 26, 29, 0.75);
+}
+
 .navbar.scrolled {
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
@@ -2991,10 +3007,12 @@ a.google-score:hover { border-color: var(--turquesa); background: rgba(10, 162, 
 .aula-luna   { background: linear-gradient(160deg, #c99f96 0%, #dbb4ac 100%); }
 .aula-sole   { background: linear-gradient(160deg, #0b8fa8 0%, #0AA2C0 100%); }
 
-.aula-luna .espacio-nombre,
-.aula-luna .espacio-desc { color: var(--verde); }
-.aula-luna .espacio-desc { opacity: 0.8; }
-.aula-luna .espacio-edad { background: rgba(20, 42, 46, 0.16); color: var(--verde); }
+/* El rosa de Luna es claro, por eso su texto va oscuro.
+   Solo mientras NO tenga foto: con foto manda el degradado. */
+.aula-luna:not(:has(img)) .espacio-nombre,
+.aula-luna:not(:has(img)) .espacio-desc { color: var(--verde); }
+.aula-luna:not(:has(img)) .espacio-desc { opacity: 0.8; }
+.aula-luna:not(:has(img)) .espacio-edad { background: rgba(20, 42, 46, 0.16); color: var(--verde); }
 
 /* La wide de los patios es vertical de origen: el corte sube a los niños. */
 .espacios-gallery .espacio-wide img { object-position: center 62%; }
@@ -3473,7 +3491,7 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 .equipo-acordeon {
   display: flex;
   gap: 0.8rem;
-  height: 440px;
+  height: 420px;
 }
 
 .equipo-acordeon .persona {
@@ -3503,8 +3521,8 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
   background: linear-gradient(to top, rgba(14, 34, 37, 0.94) 35%, transparent);
 }
 
-.equipo-acordeon .persona-nombre { color: var(--white); white-space: nowrap; }
-.equipo-acordeon .persona-rol { color: var(--rosa); white-space: nowrap; }
+.equipo-acordeon .persona-nombre { color: var(--white); }
+.equipo-acordeon .persona-rol { color: var(--rosa); font-size: 0.74rem; line-height: 1.25; }
 
 /* El párrafo solo aparece en la que se abre */
 .equipo-acordeon .persona p {
@@ -3519,7 +3537,7 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 @media (hover: hover) {
   .equipo-acordeon:hover .persona { flex-grow: 0.6; }
   .equipo-acordeon .persona:hover { flex-grow: 3; }
-  .equipo-acordeon .persona:hover p { opacity: 1; max-height: 9rem; margin-top: 0.5rem; }
+  .equipo-acordeon .persona:hover p { opacity: 1; max-height: 12rem; margin-top: 0.5rem; }
 }
 
 @media (hover: none), (max-width: 760px) {
@@ -3945,6 +3963,8 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 
 /* ---- Páginas de aula ---- */
 .aula-hero { text-align: left; }
+/* El texto del aula es lo primero que se lee: alineado con el título, no centrado. */
+.aula-hero p { margin-left: 0; max-width: 680px; font-size: 1.2rem; line-height: 1.6; }
 .aula-hero--stella { background: linear-gradient(160deg, #1d3a3f 0%, #142a2e 100%); }
 .aula-hero--luna   { background: linear-gradient(160deg, #c99f96 0%, #dbb4ac 100%); }
 .aula-hero--sole   { background: linear-gradient(160deg, #0b8fa8 0%, #0AA2C0 100%); }
@@ -4101,23 +4121,6 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 .registro p { margin: 0; }
 @media (max-width: 640px) { .registro { padding: var(--space-md); } }
 
-/* Compromiso de las familias */
-.compromiso {
-  margin-top: var(--space-lg);
-  padding: var(--space-md) var(--space-lg);
-  background: var(--verde);
-  color: var(--white);
-  border-radius: var(--radius-md);
-  max-width: 820px;
-}
-.compromiso h3 {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  margin: 0 0 0.6rem;
-  color: var(--rosa);
-}
-.compromiso p { margin: 0; color: rgba(255,255,255,0.88); }
-@media (max-width: 640px) { .compromiso { padding: var(--space-md); } }
 
 /* Foto del espacio en las páginas de aula */
 .aula-espacio { margin: var(--space-lg) 0 0; }
@@ -4135,3 +4138,485 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 
 /* Con el velo casi transparente, cada texto del hero se sostiene solo. */
 .hero-kicker, .hero-claim, .hero-proof { text-shadow: 0 1px 8px rgba(10, 26, 29, 0.8); }
+
+
+/* Tarjeta de aula con foto: se comporta igual que las de atelier
+   (foto limpia + degradado abajo). El color del nivel solo queda
+   en las que todavía no tienen foto. */
+.espacio-aula:has(img) { background: none; }
+.espacio-aula img { position: absolute; inset: 0; }
+.espacio-aula:has(img) figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  background: linear-gradient(to top, rgba(14, 34, 37, 0.92) 0%, rgba(14, 34, 37, 0.72) 45%, transparent 100%);
+  color: var(--white);
+  z-index: 2;
+}
+.espacio-aula:has(img) .espacio-nombre,
+.espacio-aula:has(img) .espacio-desc,
+.espacio-aula:has(img) .espacio-edad,
+.espacio-aula:has(img) .espacio-ver { color: var(--white); }
+/* Sobre foto la pastilla necesita cuerpo propio: en el color plano se
+   apoyaba en el fondo del nivel, acá queda sobre cualquier cosa. */
+.espacio-aula:has(img) .espacio-edad {
+  background: rgba(14, 34, 37, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* El Gran Atelier: el corazón del proyecto, por eso ocupa el ancho
+   completo y su texto va debajo de la foto, no encima. */
+.gran-atelier {
+  grid-column: 1 / -1;
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--verde);
+  box-shadow: var(--shadow-card);
+}
+.gran-atelier img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+.gran-atelier figcaption {
+  padding: var(--space-md) var(--space-md) var(--space-md);
+  color: var(--white);
+}
+.ga-nombre {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  color: var(--rosa);
+  margin-bottom: 0.5rem;
+}
+.gran-atelier p {
+  margin: 0;
+  max-width: 78ch;
+  color: rgba(255, 255, 255, 0.9);
+}
+@media (max-width: 640px) {
+  .gran-atelier img { aspect-ratio: 4 / 3; }
+  .gran-atelier figcaption { padding: var(--space-sm); }
+}
+
+/* El co-work es el único beneficio material de la lista: va con foto
+   y ocupa el ancho entero para que no se pierda entre los otros cinco. */
+.com-item--destacado {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-sm);
+}
+.com-foto { border-radius: var(--radius-sm); overflow: hidden; }
+.com-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.com-item--destacado .com-texto { padding: var(--space-xs) var(--space-sm) var(--space-xs) 0; }
+@media (max-width: 760px) {
+  .com-item--destacado { grid-template-columns: 1fr; }
+  .com-item--destacado .com-texto { padding: 0 var(--space-xs) var(--space-xs); }
+}
+
+@media (max-width: 760px) {
+  .equipo-acordeon { display: grid; grid-template-columns: repeat(2, 1fr); height: auto; }
+  .equipo-acordeon .persona { aspect-ratio: 4 / 5; }
+}
+/* Sin hover (celular) el texto va siempre visible, si no no se lee nunca. */
+@media (hover: none) {
+  .equipo-acordeon .persona p { opacity: 1; max-height: none; margin-top: 0.4rem; }
+}
+
+
+
+/* El 07 es lo que BS pide a cambio: va en verde para que corte
+   visualmente con los seis que son lo que BS da. */
+.com-esperamos {
+  background: var(--verde);
+  border-left-color: var(--rosa);
+}
+.com-esperamos .com-num { color: var(--rosa); opacity: 0.85; }
+.com-esperamos h3 { color: var(--white); }
+.com-esperamos p { color: rgba(255, 255, 255, 0.88); }
+/* El crédito a las educadoras: no están en esta grilla, pero son
+   quienes pasan el día con los niños. */
+.equipo-nota {
+  margin: 0.4rem 0 var(--space-md);
+  font-size: 0.92rem;
+  color: rgba(20, 42, 46, 0.68);
+  max-width: 70ch;
+}
+.equipo-nota a { color: var(--turquesa); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Documentación pedagógica al cierre de cada aula */
+.doc-aula { margin-top: var(--space-lg); }
+.doc-pendiente {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  max-height: 420px;
+  width: 100%;
+  border: 2px dashed rgba(20, 42, 46, 0.22);
+  border-radius: var(--radius-lg);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(20, 42, 46, 0.4);
+  text-align: center;
+  padding: var(--space-md);
+}
+
+/* ---- Documentación como librito (formato de los cuadernos del centro reggiano) ----
+   Se hojea: en escritorio se ve una doble página (con el pliegue al centro), en
+   celular una página. Todas las páginas miden lo mismo (la más alta manda), como
+   en un librito de verdad. La lógica de las flechas está en js/main.js.
+   Las fotos van ENTERAS: en cada .dp-fila cada foto crece según su proporción
+   (--ar = ancho/alto), así la fila queda a la misma altura sin recortar a nadie.
+   Las frases de los niños van DEBAJO de su foto, con nombre y edad. */
+:root { --doc-amarillo: #e9bf4f; --doc-papel: #fdfcf9; --doc-ocre: #a8821f; }
+
+.doc-bloque { max-width: 1000px; margin: var(--space-md) auto 0; }
+
+.doc-indice { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: var(--space-md); }
+.doc-indice a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  border: 1px solid rgba(20, 42, 46, 0.12);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--verde);
+  text-decoration: none;
+  transition: background 200ms, border-color 200ms, color 200ms;
+}
+.doc-indice a span { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--doc-ocre); }
+.doc-indice a:hover { border-color: var(--doc-amarillo); }
+.doc-indice a.activo { background: var(--verde); border-color: var(--verde); color: var(--white); }
+.doc-indice a.activo span { color: var(--doc-amarillo); }
+
+.doc-visor {
+  position: relative;
+  background: var(--doc-papel);
+  border-radius: 4px;
+  box-shadow: 0 24px 60px rgba(20, 42, 46, 0.14), 0 2px 6px rgba(20, 42, 46, 0.07);
+}
+/* El pliegue del centro queda fijo: las páginas pasan por debajo */
+.doc-visor::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 48px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(20, 42, 46, 0.05) 40%, rgba(20, 42, 46, 0.11) 50%, rgba(20, 42, 46, 0.05) 60%, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+.doc-pista {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  outline: none;
+}
+.doc-pista::-webkit-scrollbar { display: none; }
+
+.doc-pag {
+  flex: 0 0 50%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.8rem 1.8rem 2rem;
+}
+.doc-pag:nth-child(odd) { scroll-snap-align: start; }
+.doc-pag--izq, .doc-pag--apertura { padding-left: 3.8rem; }
+.doc-pag--der { padding-right: 3.8rem; }
+.doc-pag figure { margin: 0; }
+.doc-pag img { display: block; width: 100%; height: auto; }
+
+/* Apertura: foto grande a sangre arriba */
+.doc-pag--apertura { padding-top: 0; }
+.dp-hero { margin: 0 -1.8rem 0.3rem -3.8rem; aspect-ratio: 16 / 10; overflow: hidden; }
+.dp-hero img { height: 100%; object-fit: cover; }
+
+/* Filas de fotos enteras */
+.dp-fila { display: flex; gap: 5px; align-items: flex-start; }
+.dp-fila--chica { width: 82%; }
+.dp-fila figure, .dp-lado figure { flex: var(--ar) 1 0; min-width: 0; }
+.dp-lado { display: flex; gap: 0.9rem; align-items: flex-start; }
+.dp-lado > div { flex: 1.15 1 0; }
+.doc-pag figcaption {
+  margin-top: 0.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.15;
+  color: var(--verde);
+}
+.doc-pag figcaption span {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--doc-ocre);
+}
+
+/* Títulos de capítulo */
+.dp-cap { display: flex; flex-direction: column; }
+.dp-cap-num { font-family: var(--font-display); font-style: italic; font-size: 0.95rem; color: var(--text-light); }
+.dp-titulo {
+  font-family: var(--font-body);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  color: var(--verde);
+  margin: 0.1rem 0 0.2rem;
+  overflow-wrap: anywhere;
+}
+.dp-sub { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; line-height: 1.2; color: var(--doc-ocre); }
+.dp-seccion {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-body);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--verde);
+}
+.dp-texto { margin: 0; font-size: 0.84rem; line-height: 1.6; color: var(--text-light); }
+.dp-cita { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height: 1.3; color: var(--verde); }
+
+/* Palabras clave con su definición */
+.dp-claves { margin: 0; display: grid; gap: 0.55rem; }
+.dp-claves dt {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--verde);
+  border-left: 3px solid var(--doc-amarillo);
+  padding-left: 0.55rem;
+}
+.dp-claves dd { margin: 0.25rem 0 0; padding-left: calc(0.55rem + 3px); font-size: 0.84rem; line-height: 1.55; color: var(--text-light); }
+
+/* Franjas de color con el rótulo en vertical */
+.dp-banda {
+  position: absolute;
+  width: 34px;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  background: var(--doc-amarillo);
+  color: var(--verde);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.dp-banda--izq { left: 0; bottom: 2rem; }
+.dp-banda--der { right: 0; top: 1.8rem; }
+
+/* Flechas para pasar de página */
+.doc-controles { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin-top: var(--space-md); }
+.doc-controles button {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 42, 46, 0.18);
+  background: var(--white);
+  color: var(--verde);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 200ms, color 200ms, opacity 200ms;
+}
+.doc-controles button:hover:not(:disabled) { background: var(--verde); color: var(--white); }
+.doc-controles button:disabled { opacity: 0.3; cursor: default; }
+.doc-contador { min-width: 4.5rem; text-align: center; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text-light); }
+
+@media (max-width: 860px) {
+  .doc-visor { background: transparent; box-shadow: none; }
+  .doc-visor::after { display: none; }
+  .doc-pista { gap: 12px; }
+  .doc-pag {
+    flex-basis: 100%;
+    scroll-snap-align: start;
+    background: var(--doc-papel);
+    border-radius: 4px;
+    box-shadow: 0 8px 22px rgba(20, 42, 46, 0.1);
+    padding: 1.3rem 1.1rem 1.6rem 3.2rem;
+  }
+  .doc-pag--der { padding: 1.3rem 3.2rem 1.6rem 1.1rem; }
+  .doc-pag--apertura { padding-top: 0; }
+  .dp-hero { margin: 0 -1.1rem 0.2rem -3.2rem; }
+  .dp-fila--chica { width: 100%; }
+  .doc-pag figcaption { font-size: 0.92rem; }
+  .doc-pag figcaption span { font-size: 0.54rem; }
+  .doc-controles { margin-top: var(--space-sm); }
+}
+/* Frase de un niño que no va pegada a una foto */
+.dp-voz { margin: 0; padding-left: 0.7rem; border-left: 3px solid var(--rosa); font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height: 1.25; color: var(--verde); }
+.dp-voz span { display: block; margin-top: 0.2rem; font-family: var(--font-body); font-style: normal; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--doc-ocre); }
+.doc-indice-titulo { margin: 0 0 0.7rem; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 1.25rem; color: var(--verde); }
+
+/* Páginas de aula: el hero queda corto (solo nombre y edad) para que el equipo se vea altiro */
+.aula-hero { padding-bottom: var(--space-lg); }
+.aula-hero + .section { padding-top: var(--space-lg); }
+/* El texto del nivel abre la documentación */
+.doc-lead {
+  max-width: 760px;
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1.35;
+  color: var(--verde);
+}
+@media (max-width: 620px) { .doc-lead { font-size: 1.3rem; } }
+
+/* Aula sin franja de color: arranca con el equipo, bajo el menú */
+.aula-top { padding-top: calc(var(--space-lg) + 80px); }
+.aula-top h1 { font-size: clamp(2.1rem, 4.2vw, 3.3rem); }
+@media (max-width: 620px) { .aula-top { padding-top: calc(var(--space-lg) + 70px); } }
+
+/* Librito: piezas que pidió la documentación de Sole */
+.dp-hero--natural { aspect-ratio: auto; }
+.dp-hero--natural img { height: auto; object-fit: initial; }
+.dp-titulo--largo { font-size: clamp(1.35rem, 2.1vw, 1.75rem); line-height: 1.05; }
+.dp-claves dt { font-size: 1.05rem; }
+.dp-voces { display: grid; gap: 0.55rem; align-content: start; }
+.dp-voces .dp-voz { font-size: 1.02rem; }
+.doc-indice-pendiente {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(20, 42, 46, 0.2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(20, 42, 46, 0.4);
+  cursor: default;
+}
+.doc-indice-pendiente span { font-family: var(--font-display); font-style: italic; }
+@media (max-width: 860px) {
+  .dp-lado { flex-direction: column; }
+  .dp-lado figure { width: 62%; flex: none; }
+}
+.dp-lista { list-style: disc; margin: 0; padding-left: 1.1rem; display: grid; gap: 0.45rem; font-size: 0.84rem; line-height: 1.55; color: var(--text-light); }
+.dp-lista li::marker { color: var(--doc-ocre); }
+.dp-claves dt { line-height: 1.15; }
+/* Apertura que cae en página derecha: la foto a sangre se refleja */
+.doc-pag--der.doc-pag--apertura { padding-left: 1.8rem; }
+.doc-pag--der .dp-hero { margin: 0 -3.8rem 0.3rem -1.8rem; }
+@media (max-width: 860px) {
+  .doc-pag--der.doc-pag--apertura { padding-left: 1.1rem; }
+  .doc-pag--der .dp-hero { margin: 0 -3.2rem 0.2rem -1.1rem; }
+}
+
+/* Librito: piezas de la documentación de Stella */
+.dp-credito { margin: -0.3rem 0 0; font-size: 0.7rem; letter-spacing: 0.04em; color: var(--doc-ocre); }
+.dp-poema { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.dp-poema p { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 1.02rem; line-height: 1.45; color: var(--verde); }
+.dp-poema--uno { display: block; flex: 1.2 1 0; }
+@media (max-width: 860px) {
+  .dp-poema { grid-template-columns: 1fr; gap: 0.6rem; }
+  .dp-poema p { font-size: 0.95rem; }
+}
+
+/* Adulto por niño en cada aula */
+.aula-ratio {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: var(--space-md) 0 0;
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: var(--rosa-light);
+  font-size: 1rem;
+  color: var(--verde);
+}
+.aula-ratio strong { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; line-height: 1; }
+.aula-ratio + .equipo-aula { margin-top: var(--space-md); }
+
+/* Admisión: transparencia sobre qué es (y qué no es) Bianca Stella */
+.aviso-playgroup {
+  max-width: 760px;
+  margin: var(--space-lg) auto 0;
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  background: var(--rosa-light);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--radius-md);
+}
+.aviso-playgroup h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--verde); margin: 0 0 0.5rem; }
+.aviso-playgroup p { margin: 0; line-height: 1.65; }
+@media (max-width: 640px) { .aviso-playgroup { padding: var(--space-md); } }
+.registro + .registro { margin-top: var(--space-md); }
+
+/* El ciclo con 6 pasos: dos columnas de tres alrededor del anillo, en sentido horario
+   (1 arriba-izq, 2 arriba-der, 3 medio-der, 4 abajo-der, 5 abajo-izq, 6 medio-izq). */
+.ciclo--6 { gap: var(--space-md) 330px; }
+.ciclo--6 .ciclo-anillo { width: 270px; height: 270px; }
+.ciclo--6 .ciclo-centro { width: 150px; height: 150px; }
+.ciclo--6 .cp-1 { grid-column: 1; grid-row: 1; text-align: right; }
+.ciclo--6 .cp-2 { grid-column: 2; grid-row: 1; text-align: left; }
+.ciclo--6 .cp-3 { grid-column: 2; grid-row: 2; text-align: left; }
+.ciclo--6 .cp-4 { grid-column: 2; grid-row: 3; text-align: left; }
+.ciclo--6 .cp-5 { grid-column: 1; grid-row: 3; text-align: right; }
+.ciclo--6 .cp-6 { grid-column: 1; grid-row: 2; text-align: right; }
+.ing-bloque p + p { margin-top: var(--space-sm); }
+.ing-bajada { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--verde); }
+@media (max-width: 860px) {
+  .ciclo--6 { gap: var(--space-md); }
+  .ciclo--6 .ciclo-paso { grid-column: 1; text-align: left; }
+  .ciclo--6 .cp-1 { grid-row: 1; } .ciclo--6 .cp-2 { grid-row: 2; } .ciclo--6 .cp-3 { grid-row: 3; }
+  .ciclo--6 .cp-4 { grid-row: 4; } .ciclo--6 .cp-5 { grid-row: 5; } .ciclo--6 .cp-6 { grid-row: 6; }
+  .ciclo--6 .ciclo-centro { grid-row: 7; width: 100%; height: auto; }
+}
+.pd-contenido .ing-intro em { color: var(--verde); }
+.pd-contenido .ing-bloque { max-width: 820px; }
+
+/* Mosaico: una foto grande y dos chicas apiladas (todas 3:4), como en los libritos */
+.dp-mosaico {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+  aspect-ratio: 9 / 8;
+}
+.dp-mosaico figure { margin: 0; min-height: 0; overflow: hidden; }
+.dp-mosaico figure:first-child { grid-row: span 2; }
+.dp-mosaico img { width: 100%; height: 100%; object-fit: cover; }
+/* Una sola foto protagonista en la página */
+.dp-fila--grande { width: 88%; }
+/* El poema de la adaptación ocupa su página entera */
+.dp-poema--grande p { font-size: 1.12rem; line-height: 1.6; }
+@media (max-width: 860px) {
+  .dp-fila--grande { width: 100%; }
+  .dp-poema--grande p { font-size: 0.98rem; }
+}
+.dp-hero--alto { aspect-ratio: 6 / 5; }
+.dp-cita--grande { font-size: 1.45rem; line-height: 1.3; }
+@media (max-width: 860px) { .dp-cita--grande { font-size: 1.2rem; } }
+.dp-fila--entera figure { flex: 1 1 0; }
+/* Co-work: la regla de los espacios, visible pero sin gritar */
+.com-aviso { margin-top: 0.7rem !important; padding-left: 0.7rem; border-left: 3px solid var(--rosa); font-size: 0.88rem; line-height: 1.55; }
