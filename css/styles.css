@@ -4620,3 +4620,11 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 .dp-fila--entera figure { flex: 1 1 0; }
 /* Co-work: la regla de los espacios, visible pero sin gritar */
 .com-aviso { margin-top: 0.7rem !important; padding-left: 0.7rem; border-left: 3px solid var(--rosa); font-size: 0.88rem; line-height: 1.55; }
+
+/* Admisión 2027: el inglés por aula (reusa las tarjetas .ing-nivel) */
+.ing27-aulas { margin: var(--space-lg) 0; }
+.ing27-intro { max-width: 720px; margin: 0 auto var(--space-md); text-align: center; color: var(--text-light); }
+.ing27-aulas .ing-nivel { background: var(--white); box-shadow: var(--shadow-sm); }
+.ing27-aulas .pricing-note { margin-top: var(--space-sm); }
+.ing27-sub { text-align: center; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 2.2vw, 1.6rem); color: var(--verde); margin: 0 0 0.4rem; }
+.ing27-sub--2 { margin-top: var(--space-lg); }
