@@ -1,0 +1,170 @@
+/* Maqueta nov-2026: menú, cabecera, cierre y footer de las páginas internas.
+   Clases con prefijo (nv-, ph-, nc-, nf-) para no chocar con styles.css. */
+body.np{background:#fff}
+body.np h1,body.np h2,body.np h3,body.np h4{font-weight:400}
+body.np .section-light{background:#f8f4ef}
+.np-cont{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* Menú */
+.nv{position:sticky;top:0;z-index:50;background:rgba(248,244,239,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e4ddd5}
+.nv .np-cont{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
+.nv-logo img{height:44px;width:auto}
+.nv-links{display:flex;align-items:center;gap:1.6rem;font-size:.88rem;font-weight:500}
+.nv-links > a,.nv-drop > button{color:#142a2e;background:none;border:0;font:inherit;cursor:pointer;padding:.4rem 0;border-bottom:1.5px solid transparent}
+.nv-links > a:hover,.nv-drop > button:hover{color:#0AA2C0}
+.nv-links > a.activo{border-bottom-color:#c9978c}
+.nv-drop{position:relative}
+.nv-drop > button::after{content:'';display:inline-block;width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin:0 0 3px 7px}
+.nv-menu{position:absolute;top:100%;left:-1rem;background:#fff;border:1px solid #e4ddd5;border-radius:12px;padding:.5rem;min-width:200px;box-shadow:0 10px 30px rgba(20,42,46,.08);opacity:0;visibility:hidden;transform:translateY(6px);transition:all .18s}
+.nv-drop:hover .nv-menu,.nv-drop:focus-within .nv-menu{opacity:1;visibility:visible;transform:none}
+.nv-menu a{display:block;padding:.55rem .8rem;border-radius:8px;color:#142a2e}
+.nv-menu a span{display:block;font-size:.75rem;color:#6f7b7c}
+.nv-menu a:hover{background:#f8f4ef}
+.nv-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;white-space:nowrap;padding:.65rem 1.25rem;border-radius:999px;font-weight:600;font-size:.85rem;background:#0AA2C0;color:#fff!important;transition:background .2s}
+.nv-btn:hover{background:#0890ab}
+.nv-toggle{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer;position:relative}
+.nv-toggle span{position:absolute;left:9px;right:9px;height:1.5px;background:#142a2e;transition:transform .2s,opacity .2s}
+.nv-toggle span:nth-child(1){top:13px}.nv-toggle span:nth-child(2){top:19px}.nv-toggle span:nth-child(3){top:25px}
+.nv-abierto .nv-toggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nv-abierto .nv-toggle span:nth-child(2){opacity:0}
+.nv-abierto .nv-toggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.nv-movil{display:none}
+
+/* Cabecera de cada página */
+.ph{background:#f8f4ef;padding:clamp(40px,6vw,80px) 0}
+.ph .np-cont{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.ph--solo .np-cont{grid-template-columns:1fr}
+.ph-eyebrow{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#0AA2C0;font-weight:600;margin-bottom:.9rem}
+.ph h1{font-size:clamp(2.5rem,5.5vw,4.2rem);line-height:1.08;color:#142a2e;letter-spacing:0}
+.ph h1 em{color:#c9978c}
+.ph p{margin-top:1.2rem;font-size:1.05rem;color:#3c4a4c;max-width:34rem}
+.ph-foto img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px}
+.ph-banda{margin-top:0}
+.ph-banda img{width:100%;height:clamp(260px,42vw,560px);object-fit:cover;object-position:center 60%}
+
+/* Cierre: invitación a la visita */
+.nc{background:#f8f4ef;text-align:center;padding:clamp(64px,8vw,104px) 0}
+.nc h2{font-size:clamp(2rem,4.5vw,3.2rem);color:#142a2e}
+.nc h2 em{color:#c9978c}
+.nc p{margin:1rem auto 1.8rem;max-width:32rem;color:#3c4a4c}
+.nc small{display:block;margin-top:1rem;font-size:.85rem;color:#6f7b7c}
+.nc small a{text-decoration:underline}
+
+/* Footer */
+.nf{background:#142a2e;color:rgba(255,255,255,.72);font-size:.86rem;padding:64px 0 28px}
+.nf p{color:rgba(255,255,255,.72)}
+.nf-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.4fr;gap:40px}
+.nf img{height:46px;width:auto;margin-bottom:1rem;filter:brightness(0) invert(1);opacity:.9}
+.nf h4{font-family:'Raleway',sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:1rem;font-weight:600}
+.nf li{margin-bottom:.45rem}
+.nf a:hover{color:#fff}
+.nf-pie{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);font-size:.78rem}
+
+/* Sello de maqueta */
+.np-sello{position:fixed;left:16px;bottom:16px;z-index:60;background:#142a2e;color:#fff;font-size:.78rem;padding:.55rem .95rem;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.np-sello a{color:#9fe3f0;margin-left:.4rem;text-decoration:underline}
+.np-sello button{color:#fff;opacity:.7;margin-left:.6rem;font-size:1rem;line-height:1}
+
+@media (max-width:1020px){
+  .nv-links{display:none}
+  .nv-toggle{display:block}
+  .nv-movil{display:none;position:sticky;top:72px;z-index:49;background:#f8f4ef;border-bottom:1px solid #e4ddd5;padding:.5rem clamp(16px,4vw,40px) 1.4rem}
+  .nv-abierto + .nv-movil{display:block}
+  .nv-movil a{display:block;padding:.7rem 0;color:#142a2e;font-weight:500;border-bottom:1px solid #e4ddd5}
+  .nv-movil .sub{padding-left:1rem;font-size:.92rem;color:#3c4a4c}
+}
+@media (max-width:760px){
+  .nv .np-cont{height:64px}
+  .nv-logo img{height:38px}
+  .nv-btn{padding:.55rem 1rem;font-size:.8rem}
+  .nv-movil{top:64px}
+  .ph .np-cont{grid-template-columns:1fr}
+  .ph-foto{order:-1}
+  .ph-foto img{aspect-ratio:4/3;border-radius:14px}
+  .nf-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .nf-grid > div:first-child{grid-column:1 / -1}
+  .np-sello{font-size:.72rem;left:10px;bottom:10px}
+}
+
+/* Capacitación anual del equipo (página Equipo) */
+.np-capac{background:#eef4f3;border-radius:20px;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(24px,4vw,56px);align-items:center}
+.np-capac .ph-eyebrow{margin-bottom:.7rem}
+.np-capac h2{font-size:clamp(1.8rem,3.4vw,2.5rem);color:#142a2e;line-height:1.15}
+.np-capac h2 em{color:#c9978c}
+.np-capac-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.np-capac-item{background:#fff;border-radius:14px;padding:1.3rem 1.4rem}
+.np-capac-item h3{font-size:1.35rem;color:#142a2e;margin-bottom:.3rem}
+.np-capac-item p{font-size:.92rem;color:#3c4a4c}
+@media (max-width:760px){.np-capac{grid-template-columns:1fr}.np-capac-items{grid-template-columns:1fr}}
+.ph .ph-lead{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(1.35rem,2.2vw,1.7rem);line-height:1.25;color:#142a2e}
+.ph p + p{margin-top:.9rem}
+
+/* Álbum de celebraciones con las familias (página Familias) */
+.np-album-cab{max-width:640px;margin-bottom:clamp(24px,4vw,40px)}
+.np-album-cab h2{color:#142a2e}
+.np-album-cab p{margin-top:.8rem}
+.np-album-grande img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:18px}
+.np-album-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.np-album-grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px}
+.np-album-pie{margin-top:1rem;font-size:.82rem;color:#6f7b7c}
+@media (max-width:760px){.np-album-grid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}.np-album-grande img{border-radius:14px}}
+
+/* Nuestras inspiraciones (página Equipo) */
+.np-insp{background:#f8f4ef}
+.np-insp-cab{max-width:640px;margin-bottom:clamp(28px,4vw,44px)}
+.np-insp-cab h2{color:#142a2e}
+.np-insp-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.np-insp-cita{background:#fff;border-radius:16px;padding:clamp(22px,3vw,34px);display:flex;flex-direction:column;margin:0}
+.np-insp-cita blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.28rem;line-height:1.38;color:#142a2e}
+.np-insp-cita figcaption{margin-top:auto;padding-top:1.1rem;font-size:.8rem;color:#6f7b7c;line-height:1.5}
+.np-insp-cita figcaption strong{display:block;color:#142a2e;font-weight:600;font-size:.86rem}
+.np-insp-nota{margin-top:1.2rem;font-size:.78rem;color:#6f7b7c}
+@media (max-width:760px){.np-insp-grid{grid-template-columns:1fr}.np-insp-cita blockquote{font-size:1.15rem}}
+
+/* Equipo: menos aire entre la cabecera y Dani, y su nombre junto a su foto */
+.ph--solo{padding-bottom:0}
+.ph--solo + .section{padding-top:clamp(28px,4vw,48px)}
+body.np .founder-grid{gap:clamp(24px,3.5vw,44px);align-items:start}
+body.np .founder-text{padding-top:clamp(0px,2vw,24px)}
+/* Mismo ancho y margen que las secciones de styles.css (.container), para que todo quede alineado */
+.np-cont{max-width:1200px;padding:0 var(--space-md)}
+@media (max-width:760px){.np-cont{padding:0 16px}}
+.nc{border-top:1px solid #e9e2da}
+/* Menos aire entre secciones en las páginas internas (Dani: "es como que no viene nada") */
+body.np .section{padding:clamp(52px,6vw,76px) 0}
+body.np #como-en-casa{padding-top:clamp(36px,4vw,48px)}
+
+/* Cita grande de Malaguzzi (Familias) */
+.np-lema{background:#fff;text-align:center;padding:clamp(56px,7vw,88px) 0 clamp(24px,3vw,36px)}
+.np-lema blockquote{max-width:860px;margin:0 auto;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.6rem,3.2vw,2.4rem);line-height:1.3;color:#142a2e}
+.np-lema figcaption{margin-top:1.2rem;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#6f7b7c;font-weight:500;line-height:1.7}
+.np-lema figcaption::before{content:'';display:block;width:44px;height:1.5px;background:#c9978c;margin:0 auto 1.1rem}
+
+/* Cita dentro de la cabecera (Familias): ocupa el alto de la foto */
+.ph-cita{margin:2rem 0 0;padding-left:1.3rem;border-left:2px solid #c9978c;max-width:34rem}
+.ph-cita blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.25rem,2vw,1.55rem);line-height:1.35;color:#142a2e}
+.ph-cita figcaption{margin-top:.9rem;font-size:.78rem;color:#6f7b7c;line-height:1.5}
+.ph-cita figcaption strong{display:block;color:#142a2e;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.72rem}
+/* Familias: la comunidad sube, pegada a la cabecera (mismo fondo crema) */
+.ph:has(+ #comunidad){padding-bottom:clamp(24px,3vw,36px)}
+.ph + #comunidad{padding-top:clamp(16px,2vw,28px)}
+
+/* Álbum por evento, como carpetas con pestañas (Familias) */
+.np-carpetas{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:-1px;position:relative;z-index:1}
+.np-carpetas::-webkit-scrollbar{display:none}
+.np-carpeta{flex:0 0 auto;background:#ece4da;color:#142a2e;border-radius:14px 14px 0 0;padding:.75rem 1.3rem;font-weight:600;font-size:.88rem;transition:background .2s}
+.np-carpeta:hover{background:#e4dacd}
+.np-carpeta.activa{background:#f8f4ef;color:#142a2e}
+.np-carpeta-panel{display:none;background:#f8f4ef;border-radius:0 16px 16px 16px;padding:clamp(14px,2.2vw,24px)}
+.np-carpeta-panel.activa{display:block}
+.np-carpeta-panel .np-album-grid{margin-top:0}
+@media (max-width:760px){.np-carpeta{padding:.65rem 1rem;font-size:.82rem}.np-carpeta-panel .np-album-grid{grid-template-columns:repeat(3,1fr);gap:6px}.np-album-grid img{border-radius:8px}}
+
+/* Celular: la foto de la cabecera más cuadrada y tomada desde arriba, para que no se corten las caras */
+@media (max-width:760px){.ph-foto img{aspect-ratio:1/1;object-position:center 12%}}
+
+/* Páginas antiguas con el menú nuevo (en flujo, ya no fijo sobre el hero) */
+body.np-nav .page-hero{padding-top:var(--space-xl)}
+body.np-nav .aula-top{padding-top:var(--space-lg)}
+/* Equipo: la foto grupal es horizontal, se muestra entera */
+.ph-foto img[src*="equipo-2026"]{aspect-ratio:4/3}

@@ -4222,8 +4222,9 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 }
 
 @media (max-width: 760px) {
-  .equipo-acordeon { display: grid; grid-template-columns: repeat(2, 1fr); height: auto; }
-  .equipo-acordeon .persona { aspect-ratio: 4 / 5; }
+  /* una persona por fila: de a dos se montaban y el texto quedaba cortado */
+  .equipo-acordeon { display: grid; grid-template-columns: 1fr; height: auto; }
+  .equipo-acordeon .persona { aspect-ratio: auto; height: auto; min-height: 420px; }
 }
 /* Sin hover (celular) el texto va siempre visible, si no no se lee nunca. */
 @media (hover: none) {
@@ -4643,3 +4644,19 @@ a.espacio-aula:hover .espacio-ver { color: var(--white); border-color: var(--whi
 .ing-home-nota{max-width:760px;margin:var(--space-lg) auto 0;text-align:center;font-size:.95rem}
 .ing-home-cta{display:flex;gap:var(--space-sm);justify-content:center;flex-wrap:wrap;margin-top:var(--space-md)}
 @media (max-width:860px){.ing-home-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+
+/* Roles del equipo de aula: co-educadora (técnico abajo) y educadora de inglés */
+.edu-cargo--sub {
+  font-size: 0.64rem;
+  color: rgba(20, 42, 46, 0.4);
+  margin-top: 1px;
+}
+.edu-cargo--ingles {
+  color: var(--turquesa);
+  margin-top: 3px;
+}
+
+/* Talleres: las dos tarjetas de precio una debajo de otra en el celular */
+@media (max-width: 600px) {
+  .pricing-grid[style*="1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
