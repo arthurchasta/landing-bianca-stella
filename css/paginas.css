@@ -168,3 +168,6 @@ body.np-nav .page-hero{padding-top:var(--space-xl)}
 body.np-nav .aula-top{padding-top:var(--space-lg)}
 /* Equipo: la foto grupal es horizontal, se muestra entera */
 .ph-foto img[src*="equipo-2026"]{aspect-ratio:4/3}
+/* Equipo: Dani sube, pegada a la cabecera (mismo fondo crema) */
+.ph:has(+ #fundadora){padding-bottom:clamp(20px,2.5vw,32px)}
+.ph + #fundadora{padding-top:clamp(12px,1.5vw,20px)}
