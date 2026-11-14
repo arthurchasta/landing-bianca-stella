@@ -172,3 +172,16 @@ body.np-nav .aula-top{padding-top:var(--space-lg)}
 .ph:has(+ #fundadora){padding-bottom:clamp(20px,2.5vw,32px)}
 .ph + #fundadora{padding-top:clamp(12px,1.5vw,20px)}
 .ph-foto picture{display:block}
+
+/* Admisión: todo incluido + lo único que se pide aparte */
+.todo-incluido{background:#eef4f3;border-radius:14px;padding:clamp(18px,3vw,26px)}
+.todo-incluido h3{font-size:clamp(1.35rem,2.4vw,1.7rem);color:#142a2e;font-weight:400}
+.todo-incluido p{margin-top:.5rem;font-size:.95rem;color:#3c4a4c}
+.aparte{margin-top:var(--space-md);padding-top:var(--space-sm);border-top:1px solid rgba(0,0,0,.08)}
+.aparte h4{font-family:'Raleway',sans-serif;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#0AA2C0;font-weight:700}
+.aparte ul{list-style:none;margin:.7rem 0 0;padding:0;display:grid;gap:.45rem}
+.aparte li{position:relative;padding-left:1.2rem;font-size:.9rem;color:#3c4a4c}
+.aparte li::before{content:'+';position:absolute;left:0;color:#c9978c;font-weight:700}
+.aparte li strong{color:#142a2e;font-weight:600}
+.aparte p{margin-top:.7rem;font-size:.78rem;color:var(--text-muted)}
+@media (max-width:600px){.included-block{padding:18px 16px}}
