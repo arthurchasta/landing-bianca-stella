@@ -2027,7 +2027,7 @@ em {
   border-radius: var(--radius-sm);
 }
 
-/* Notas de oferta (matrícula proporcional / facilidades de pago) */
+/* Notas de oferta (inscripción proporcional / facilidades de pago) */
 .offer-note {
   max-width: 640px;
   margin: var(--space-md) auto 0;
